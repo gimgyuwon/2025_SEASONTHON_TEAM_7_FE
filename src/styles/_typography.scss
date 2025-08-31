@@ -1,0 +1,21 @@
+@use "variables";
+
+h1,
+h2,
+h3 {
+  font-family: variables.$font-heading;
+  margin-bottom: variables.$spacing-md;
+}
+
+p {
+  margin-bottom: variables.$spacing-md;
+}
+
+a {
+  color: variables.$primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
