@@ -1,0 +1,33 @@
+@use "variables";
+
+body {
+  background-color: variables.$gray;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+  padding: variables.$spacing-md;
+  background-color: variables.$white;
+  min-height: 100vh;
+}
+
+header,
+footer {
+  background-color: variables.$primary-color;
+  color: variables.$white;
+  padding: variables.$spacing-md;
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
