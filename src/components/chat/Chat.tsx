@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import { createStompClient, subscribe } from "@/utils/stompClient";
 
-export const ChatRoom: React.FC = () => {
+const Chat: React.FC = () => {
   const [roomId, setRoomId] = useState("1");
   const [senderId, setSenderId] = useState("123");
   const [content, setContent] = useState("");
   const [lines, setLines] = useState<string[]>([]);
   const clientRef = useRef<Client | null>(null);
   const unsubRef = useRef<(() => void) | null>(null);
+  const socket_url = "/ws-connect";
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const client = createStompClient("/api/ws-connect", token);
+    const token = localStorage.getItem("signupToken");
+    const client = createStompClient(socket_url, token);
     clientRef.current = client;
 
     client.onConnect = () => {
@@ -100,3 +101,5 @@ export const ChatRoom: React.FC = () => {
     </div>
   );
 };
+
+export default Chat;

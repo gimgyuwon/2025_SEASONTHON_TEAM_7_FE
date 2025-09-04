@@ -3,11 +3,18 @@ import SockJS from "sockjs-client";
 
 export const createStompClient = (endpoint: string, token?: string | null) => {
   const client = new Client({
-    webSocketFactory: () => new SockJS(endpoint),
+    webSocketFactory: () => new SockJS(import.meta.env.VITE_API_URL + endpoint),
     connectHeaders: token ? { Authorization: `Bearer ${token}` } : {},
     reconnectDelay: 3000,
     debug: () => {},
   });
+
+  // on connect
+  client.onConnect = (frame) => {
+    console.log("STOMP connected", frame);
+  };
+  client.activate();
+  console.log("createStompClient 실행되었어요");
 
   return client;
 };
