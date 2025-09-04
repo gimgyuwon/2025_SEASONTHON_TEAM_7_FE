@@ -1,0 +1,154 @@
+@use "../_typography";
+@use "../_variables";
+
+.subT {
+  @extend .subTitle;
+  text-align: center;
+  margin-bottom: 1.9375rem;
+}
+
+
+.extra-info-form {
+  .form-group {
+    margin-bottom: 2rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      @extend .label;
+    }
+    
+    input,
+    select {
+      width: 100%;
+      padding-left: 0.75rem;
+      padding-top: 0.906rem;
+      padding-bottom: 0.906rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+      @extend .body;
+      &:focus {
+        outline: none;
+        border-color: variables.$primary-color;
+      }
+    }
+    
+    select {
+      background: white;
+      cursor: pointer;
+    }
+  }
+}
+
+// 연령대 선택 컴포넌트 스타일
+.age-range-selector {
+  margin-bottom: 2rem;
+  
+  .age-range-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    @extend .label;
+  }
+  
+  .age-range-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .age-range-btn {
+    padding: 0.65rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: white;
+    color: variables.$black;
+    @extend .body;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 2.5rem;
+    
+    &:hover {
+      border-color: variables.$primary-color;
+      background: #f8f9fa;
+    }
+    
+    &.selected {
+      background: variables.$primary-color;
+      border-color: variables.$primary-color;
+      color: white;
+      
+      &:hover {
+        background: variables.$primary-color;
+        border-color: variables.$primary-color;
+      }
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.25);
+    }
+  }
+}
+
+// 관심사 선택 컴포넌트 스타일
+.interest-selector {
+  margin-bottom: 2rem;
+  
+  .interest-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    @extend .label;
+  }
+
+  .interest-label-description {
+    display: block;
+    margin-bottom: 1.5rem;
+    @extend .body;
+  }
+  
+  .interest-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .interest-btn {
+    padding: 0.65rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: white;
+    color: variables.$black;
+    @extend .body;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 2.5rem;
+    
+    &:hover {
+      border-color: variables.$primary-color;
+      background: #f8f9fa;
+    }
+    
+    &.selected {
+      background: variables.$primary-color;
+      border-color: variables.$primary-color;
+      color: white;
+      
+      &:hover {
+        background: variables.$primary-color;
+        border-color: variables.$primary-color;
+      }
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.25);
+    }
+  }
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
