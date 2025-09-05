@@ -1,0 +1,270 @@
+@use "../variables";
+@use "../typography";
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.home-title {
+  @extend .label;
+  padding-bottom: 12px;
+}
+
+.home-interests {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%; // 부모 컨테이너의 100% 너비로 제한
+  overflow-x: auto; // 넘치는 부분은 스크롤로 처리
+  scrollbar-width: none;
+  padding-bottom: 16px;
+}
+
+.home-interest-item {
+  @extend .caption1;
+  background-color: variables.$secondary-color;
+  padding: 4px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 1px solid variables.$outline-color;
+  
+  flex-shrink: 0;
+  
+  // 활성 상태 (클릭된 상태)
+  &.active {
+    background-color: variables.$primary-color;
+  }
+  
+  // 호버 효과
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// 유저 카드 그리드
+.user-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 2열 그리드
+  gap: 12px;
+}
+
+// 유저 카드
+.user-card {
+  display: flex;
+  flex-direction: column;
+
+  background-color: variables.$white;
+  border: 1px solid variables.$secondary-color;
+  border-radius: 4px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  // width: 44.35vw;
+  // height: 25.11vh;
+  width: 173px;
+  height: 212px;
+  
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+// 프로필 영역
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profile-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: variables.$gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: variables.$white;
+  font-weight: 500;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0; // 텍스트 오버플로우 방지
+}
+
+.user-name {
+  @extend .caption1;
+  margin-bottom: 2px;
+  margin-right: 8px;
+}
+
+.user-age {
+  @extend .caption2;
+  color: variables.$text-gray;
+}
+
+.tea-score {
+  @extend .caption2;
+  padding: 4px;
+  border-radius: 2px;
+  background-color: variables.$secondary-color;
+  color: variables.$text-black;
+}
+
+.tea-score-number {
+  padding-left: 4px;
+  font-weight: 500;
+}
+
+// 자기소개
+.user-introduction {
+  @extend .caption1;
+  text-align: start;
+  display: -webkit-box;
+  line-clamp: 3; // 3줄로 제한
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// 해시태그
+.user-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto; // 카드 하단으로 밀어내기
+}
+
+.hashtag {
+  @extend .caption2;
+  color: variables.$text-gray;
+}
+
+// 스켈레톤 UI
+.user-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  background-color: variables.$white;
+  border: 1px solid variables.$outline-color;
+  border-radius: 4px;
+  padding: 12px;
+  width: 173px;
+  height: 212px;
+}
+
+.skeleton-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skeleton-name {
+  width: 60px;
+  height: 12px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeleton-age {
+  width: 40px;
+  height: 10px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeleton-tea-score {
+  width: 80px;
+  height: 10px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeleton-introduction {
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skeleton-line {
+  height: 10px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  
+  &:nth-child(1) { width: 100%; }
+  &:nth-child(2) { width: 90%; }
+  &.short { width: 60%; }
+}
+
+.skeleton-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.skeleton-hashtag {
+  width: 30px;
+  height: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  
+  &:nth-child(2) { width: 25px; }
+  &:nth-child(3) { width: 35px; }
+}
+
+// Shimmer 애니메이션
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
