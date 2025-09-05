@@ -9,6 +9,7 @@ const ChatRoom = () => {
   const instruction = "채팅종료까지 남은 시간";
   const { chatRoomId } = useParams<{ chatRoomId: string }>();
   const [history, setHistory] = useState<MessageBaseType[]>([]);
+  const myName = "T1";
 
   console.log(chatRoomId);
 
@@ -39,8 +40,34 @@ const ChatRoom = () => {
 
   return (
     <div className="wrapper">
-      <div className="chat">
-        <div className="chat__instruction caption1">{instruction}</div>
+      <div className="chatRoom">
+        <div className="chatRoom__instruction caption1">{instruction}</div>
+        <div className="chatRoom__list">
+          {history.map((chat, idx) => {
+            const isMyMsg = chat.senderName === "T1";
+            return (
+              <div
+                key={idx}
+                className={`chatRoom__bubble ${isMyMsg ? "my" : "your"}`}
+              >
+                <div className={`chatRoom__name label`}>{chat.senderName}</div>
+                <div
+                  className={isMyMsg ? "chatRoom__myMsg" : "chatRoom__yourMsg"}
+                >
+                  <div
+                    className={
+                      isMyMsg
+                        ? "chatRoom__myContent body"
+                        : "chatRoom__yourContent body"
+                    }
+                  >
+                    {chat.content}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
