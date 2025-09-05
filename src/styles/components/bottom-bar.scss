@@ -1,0 +1,75 @@
+@use "../variables";
+@use "../typography";
+
+// 바텀바 아이템 공통 스타일
+.bottom-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px 6px 12px;
+  // padding: 10px 12px 34px 12px;
+  text-decoration: none;
+  min-width: 60px;
+
+  &.active {
+    color: variables.$text-black;
+    
+    .bottom-bar-label {
+      color: variables.$text-black;
+    }
+  }
+  
+  &.inactive {
+    color: variables.$disabled;
+    
+    .bottom-bar-label {
+      color: variables.$disabled;
+    }
+  }
+
+  .bottom-bar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    
+    .bottom-bar-icon-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .bottom-bar-label {
+    @extend .caption2;
+  }
+}
+
+// 메인 콘텐츠 영역
+.main-content {
+  min-height: calc(100vh - 120px); // 헤더 + 바텀 네비 높이 제외
+  padding-bottom: 80px; // 바텀 네비 공간 확보
+}
+
+// 바텀바 스타일
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  background-color: variables.$white;
+  border-top: 1px solid #e0e0e0;
+  border-radius: 12px 12px 0 0;
+  z-index: 100;
+  box-shadow: 0px -2px 12px 0px #00000014;
+
+  .bottom-bar-content {
+    display: flex;
+    justify-content: space-around;
+    // padding: 0 0 30px 0;
+  }
+}
