@@ -1,10 +1,12 @@
 import type {
   ChatRequestType,
   ChatResponseType,
+  EvaluateRequestType,
+  EvaluateResponseType,
   MessageResponseType,
   MyChatResponseType,
 } from "@/interfaces/chat";
-import { chatApi } from "../axiosInstance";
+import { apiV1, chatApi } from "../axiosInstance";
 
 // POST: create chat room
 export const CreateChatRoom = async (
@@ -27,6 +29,15 @@ export const RetrieveSpecificChat = async (
 // GET: retrieve my chat room mesage
 export const RetrieveMyChat = async (): Promise<MyChatResponseType> => {
   const { data } = await chatApi.get("/me");
+
+  return data;
+};
+
+// POST: Evaluate manner score
+export const EvaluateScore = async (
+  body: EvaluateRequestType
+): Promise<EvaluateResponseType> => {
+  const { data } = await apiV1.post("/manners", body);
 
   return data;
 };

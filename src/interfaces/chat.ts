@@ -50,3 +50,21 @@ export type MyChatResponseType = {
   message: string;
   data: MyChatBaseType[];
 };
+
+export type EvaluateRequestType = {
+  memberId: number;
+  rate: number;
+  review: string;
+};
+
+export type EvaluateBaseType = {
+  id: number;
+  rate: number;
+  review: string;
+};
+
+export type EvaluateResponseType = {
+  success: true;
+  message: string;
+  data: EvaluateBaseType;
+};

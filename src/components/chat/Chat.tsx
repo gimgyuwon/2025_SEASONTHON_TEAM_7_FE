@@ -4,6 +4,7 @@ import { Client } from "@stomp/stompjs";
 import { createStompClient, type IncomingChatMsg } from "@/utils/stompClient";
 import {
   CreateChatRoom,
+  EvaluateScore,
   RetrieveMyChat,
   RetrieveSpecificChat,
 } from "@/services/chat/chatService";
@@ -127,6 +128,19 @@ const Chat: React.FC = () => {
     setRoomId(id);
   };
 
+  const handleEvaluateScore = async () => {
+    try {
+      const res = await EvaluateScore({
+        memberId: 1,
+        rate: 5,
+        review: "친절하고 성실한 분이었어요!",
+      });
+      console.log("EvaluateScore try", res);
+    } catch (err: unknown) {
+      console.error("evaluate manner score failed", err);
+    }
+  };
+
   const handleSendMessage = () => {
     if (!msg.trim() || !clientRef.current || !roomId) return;
 
@@ -152,6 +166,10 @@ const Chat: React.FC = () => {
       <h2 className="text-lg font-bold mb-2">
         현재 채팅방: {roomId ?? "(미입장)"}
       </h2>
+
+      <button type="submit" onClick={() => handleEvaluateScore()}>
+        매너평가하기
+      </button>
 
       <div className="flex gap-2 mb-4">
         <button
