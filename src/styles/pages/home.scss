@@ -268,3 +268,154 @@
     background-position: 200% 0;
   }
 }
+
+// 채팅 신청 페이지
+.chat-request-container {
+  padding: 20px 16px 0px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+}
+
+.chat-request-profile-card {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-request-user-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 27px;
+}
+
+.chat-request-profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid variables.$primary-color;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.chat-request-profile-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: variables.$gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: variables.$white;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.chat-request-user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0; // 텍스트 오버플로우 방지
+  padding-top: 13px;
+}
+
+.chat-request-user-name {
+  @extend .label;
+  font-family: Elice DX Neolli;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 20px;
+  line-height: 100%;
+}
+
+.chat-request-user-name-suffix {
+  font-family: Elice DX Neolli;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 18px;
+  line-height: 20px;
+
+  color: variables.$text-black;
+  margin-left: 4px;
+}
+
+.chat-request-user-age {
+  @extend .body;
+  color: variables.$text-gray;
+  margin-left: 12px;
+}
+
+.chat-request-tea-score {
+  @extend .body;
+  padding: 4px;
+  border-radius: 2px;
+  background-color: variables.$secondary-color;
+  color: variables.$text-black;
+  width: fit-content; // 텍스트 크기만큼만 배경색 적용
+}
+
+.chat-request-tea-score-number {
+  padding-left: 4px;
+  font-weight: 500;
+}
+
+.chat-request-user-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto; // 카드 하단으로 밀어내기
+}
+
+.chat-request-hashtag {
+  @extend .body;
+  color: variables.$text-black;
+  gap: 12px;
+}
+
+.chat-request-introduction-section {
+  padding: 20px 6px 0px 6px;
+}
+
+.chat-request-section-title {
+  @extend .caption1;
+  margin-bottom: 12px;
+  color: variables.$text-black;
+}
+
+.chat-request-introduction-text {
+  font-family: Elice DX Neolli;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 120%;
+}
+
+.chat-request-button-section {
+  margin-top: auto;
+  padding-bottom: 60px;
+}
+
+.chat-request-btn {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+// 결과 없음 메시지
+.no-results {
+  grid-column: 1 / -1; // 전체 그리드 영역 차지
+  text-align: center;
+  padding: 40px 20px;
+  
+  p {
+    @extend .body;
+    color: variables.$text-gray;
+  }
+}
