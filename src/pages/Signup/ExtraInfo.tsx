@@ -10,6 +10,7 @@ const ExtraInfo = () => {
     formData,
     isLoading,
     nextStep,
+    prevStep,
     handleInputChange,
     handleAgeChange,
     handleInterestsChange,
@@ -32,6 +33,7 @@ const ExtraInfo = () => {
           onInputChange={handleInputChange}
           onAgeChange={handleAgeChange}
           onNext={nextStep}
+          onBack={prevStep}
         />
       ) : (
         <InterestSetup
@@ -39,6 +41,7 @@ const ExtraInfo = () => {
           onInterestsChange={handleInterestsChange}
           onSubmit={handleSubmit}
           isLoading={isLoading}
+          onBack={prevStep}
         />
       )}
     </div>

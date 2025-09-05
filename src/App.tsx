@@ -1,36 +1,40 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home, Labs, Login, ExtraInfo } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
+import { LayoutProvider } from "./contexts/LayoutProvider";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          {/* 공개 페이지 */}
-          <Route path="/" element={<Home />} />
-          <Route path="/labs" element={<Labs />} />
-          
-          {/* 비인증 사용자만 접근 가능 (로그인, 회원가입) */}
-          <Route 
-            path="/login" 
-            element={
-              <ProtectedRoute requireAuth={false}>
-                <Login />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/signup/extra-info" 
-            element={
-              <ProtectedRoute requireAuth={false}>
-                <ExtraInfo />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <LayoutProvider>
+        <Layout>
+          <Routes>
+            {/* 공개 페이지 */}
+            <Route path="/" element={<Home />} />
+            <Route path="/labs" element={<Labs />} />
+            
+            {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
+            <Route 
+              path="/login" 
+              element={
+                <ProtectedRoute requireAuth={false}>
+                  <Login />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/signup/extra-info" 
+              element={
+                <ProtectedRoute requireAuth={false}>
+                  <ExtraInfo />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </Layout>
+      </LayoutProvider>
+    </BrowserRouter>
   );
 }
 
