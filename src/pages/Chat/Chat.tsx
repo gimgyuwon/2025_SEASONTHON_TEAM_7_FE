@@ -8,8 +8,6 @@ const Chat = () => {
   const navigate = useNavigate();
   const [myRooms, setMyRooms] = useState<MyChatBaseType[]>([]);
 
-  console.log(myRooms);
-
   // Retrieve my chat room
   useEffect(() => {
     (async () => {

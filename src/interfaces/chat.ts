@@ -68,3 +68,9 @@ export type EvaluateResponseType = {
   message: string;
   data: EvaluateBaseType;
 };
+
+export interface RenderMsgProps {
+  sender: string;
+  text: string;
+  at?: string;
+}

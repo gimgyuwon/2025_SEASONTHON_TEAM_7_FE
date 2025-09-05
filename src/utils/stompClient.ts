@@ -9,7 +9,7 @@ export interface IncomingChatMsg {
 }
 
 const buildAuthHeaders = (rawToken?: string | null): StompHeaders => {
-  if (!rawToken) return {}; // 빈 객체는 OK (index signature 충족)
+  if (!rawToken) return {};
   const v = rawToken.startsWith("Bearer ") ? rawToken : `Bearer ${rawToken}`;
   return { Authorization: v }; // 항상 string
 };
@@ -27,7 +27,6 @@ export const createStompClient = (
     webSocketFactory: () => new SockJS(import.meta.env.VITE_API_URL + endpoint),
     reconnectDelay: 3000,
     debug: () => {},
-    // 재연결 포함: 연결 직전에 최신 토큰을 세션에서 읽어 주입
     beforeConnect: () => {
       const token = sessionStorage.getItem("accessToken");
       client.connectHeaders = buildAuthHeaders(token);

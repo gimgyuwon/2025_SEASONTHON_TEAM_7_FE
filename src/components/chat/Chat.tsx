@@ -8,19 +8,17 @@ import {
   RetrieveMyChat,
   RetrieveSpecificChat,
 } from "@/services/chat/chatService";
-import type { ChatResponseType, MyChatResponseType } from "@/interfaces/chat";
-
-interface RenderMsg {
-  sender: string;
-  text: string;
-  at?: string;
-}
+import type {
+  ChatResponseType,
+  MyChatResponseType,
+  RenderMsgProps,
+} from "@/interfaces/chat";
 
 const Chat: React.FC = () => {
   const [roomId, setRoomId] = useState<number | null>(2);
   const [msg, setMsg] = useState("");
   const [createRes, setCreateRes] = useState<ChatResponseType>();
-  const [messages, setMessages] = useState<RenderMsg[]>([]);
+  const [messages, setMessages] = useState<RenderMsgProps[]>([]);
   const [myRooms, setMyRooms] = useState<MyChatResponseType["data"]>([]);
   const clientRef = useRef<Client | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
