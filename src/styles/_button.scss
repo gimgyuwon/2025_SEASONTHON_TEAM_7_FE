@@ -1,14 +1,15 @@
 @use "sass:color";
 @use "mixins";
 @use "variables";
+@use "typography";
 
 .btn {
   display: inline-block;
   padding: variables.$spacing-sm variables.$spacing-md;
-  margin: variables.$spacing-sm;
-  border-radius: variables.$spacing-xs;
-  font-size: 16px;
-  font-weight: bold;
+  border: 1px solid variables.$outline-color;
+  width: 358px;
+  height: 52px;
+  @extend .label;
   text-align: center;
   @include mixins.transition(all);
 }
@@ -16,8 +17,7 @@
 .btn-primary {
   @extend .btn;
   background-color: variables.$primary-color;
-  color: variables.$white;
-
+  color: variables.$text-black;
   &:hover {
     background-color: color.adjust(variables.$primary-color, $lightness: -10%);
   }
@@ -26,8 +26,7 @@
 .btn-secondary {
   @extend .btn;
   background-color: variables.$secondary-color;
-  color: variables.$black;
-
+  color: variables.$text-black;
   &:hover {
     background-color: color.adjust(variables.$secondary-color, $lightness: 10%);
   }
