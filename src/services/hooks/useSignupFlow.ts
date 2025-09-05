@@ -22,6 +22,12 @@ export const useSignupFlow = () => {
     setCurrentStep(2);
   };
 
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -94,6 +100,7 @@ export const useSignupFlow = () => {
     formData,
     isLoading,
     nextStep,
+    prevStep,
     handleInputChange,
     handleAgeChange,
     handleInterestsChange,
