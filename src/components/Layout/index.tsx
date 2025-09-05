@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLayout } from '../../hooks/useLayout';
+import { useLayout } from '@/services/hooks/useLayout';
 import Header from './Header';
 import BottomBar from './BottomBar';
 

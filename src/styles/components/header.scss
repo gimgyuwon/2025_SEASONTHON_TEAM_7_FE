@@ -1,0 +1,77 @@
+@use "../variables";
+@use "../typography";
+
+// 헤더 스타일
+.header {
+  background-color: variables.$background-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header-content {
+    padding: 10px 16px;
+    // padding-top: 37px;
+    max-width: 420px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 44px;
+  }
+
+  .header-logo {
+    h1 {
+      margin: 0;
+      color: variables.$text-black;
+      @extend .home-header;
+    }
+  }
+
+  .header-left {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    .label {
+      color: variables.$text-black;
+      @extend .label;
+    }
+  }
+
+  .header-title {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    
+    .label {
+      color: variables.$text-black;
+      @extend .label;
+    }
+  }
+
+  .header-spacer {
+    width: 24px; // 아이콘과 같은 너비로 공간 확보
+  }
+
+  .header-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+}
+
+// 헤더가 없는 페이지를 위한 스타일
+.main-content.no-header {
+  padding-top: 0;
+  min-height: 100vh;
+}
+
