@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home, Labs, Login, ExtraInfo, Chat, ChatRoom } from "./pages";
+import HomeChatRequest from "./pages/Home/HomeChatRequest";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import { LayoutProvider } from "./contexts/LayoutProvider";
@@ -14,6 +15,7 @@ function App() {
             {/* 공개 페이지 */}
             <Route path="/" element={<Home />} />
             <Route path="/labs" element={<Labs />} />
+            <Route path="/chat-request" element={<HomeChatRequest />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/chatlab" element={<ChatLab />} />
             <Route path="/chat/:chatRoomId" element={<ChatRoom />} />
