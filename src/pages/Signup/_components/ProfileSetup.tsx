@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AgeRangeSelector from './AgeRangeSelector';
+import { useLayout } from '@/services/hooks/useLayout';
+import { useNavigate } from 'react-router-dom';
 
 interface ProfileSetupProps {
   formData: {
@@ -9,18 +11,33 @@ interface ProfileSetupProps {
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   onAgeChange: (age: string) => void;
   onNext: () => void;
+  onBack: () => void;
 }
+
+
 
 const ProfileSetup: React.FC<ProfileSetupProps> = ({
   formData,
   onInputChange,
   onAgeChange,
-  onNext
+  onNext,
 }) => {
+  const { setLayoutConfig } = useLayout();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setLayoutConfig({
+      type: 'back-only',
+      title: '프로필 설정',
+      showHeader: true,
+      showBottomBar: false,
+      onBack: () => {
+        navigate('/login');
+        sessionStorage.removeItem('signupToken');
+      },
+    });
+  }, [setLayoutConfig, navigate]);
   return (
     <>
-      <div className="subT">프로필 설정</div>
-      
       <form className="extra-info-form">
         <div className="form-group">
           <label htmlFor="nickname">닉네임</label>

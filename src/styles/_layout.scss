@@ -1,7 +1,7 @@
 @use "variables";
 
 body {
-  background-color: variables.$gray;
+  background-color: variables.$background-color;
   margin: 0;
   padding: 0;
   display: flex;
@@ -22,7 +22,7 @@ header,
 footer {
   background-color: variables.$primary-color;
   color: variables.$white;
-  padding: variables.$spacing-md;
+
   text-align: center;
 }
 
