@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useLayout } from '@/services/hooks/useLayout';
 import { INTEREST_CATEGORIES } from '@/interfaces/interests';
 import { mockUsers } from '@/data/mockUsers';
@@ -8,6 +8,7 @@ import UserCardSkeleton from './_components/UserCardSkeleton';
 
 const Home = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { setLayoutConfig } = useLayout();
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,9 +64,29 @@ const Home = () => {
 
   // 유저 카드 클릭 핸들러
   const handleUserCardClick = (userId: string) => {
-    console.log('유저 카드 클릭:', userId);
-    // 추후 상세 페이지로 이동하거나 모달 열기 등
+    const user = mockUsers.find(u => u.id === userId);
+    if (user) {
+      navigate('/chat-request', { state: user });
+    }
   };
+
+  // 관심사에 따른 유저 필터링
+  const filteredUsers = mockUsers.filter(user => {
+    // 아무것도 선택되지 않았으면 모든 유저 표시
+    if (selectedInterests.length === 0) {
+      return true;
+    }
+    
+    // 선택된 관심사들의 label을 가져옴
+    const selectedInterestLabels = selectedInterests.map(id => 
+      INTEREST_CATEGORIES.find(cat => cat.id === id)?.label
+    ).filter(Boolean); // undefined 제거
+    
+    // 유저의 해시태그 중 하나라도 선택된 관심사와 일치하면 true
+    return user.hashtags.some(hashtag => 
+      selectedInterestLabels.includes(hashtag)
+    );
+  });
   
   return (
     <div className="wrapper">
@@ -90,15 +111,20 @@ const Home = () => {
             Array.from({ length: 6 }).map((_, index) => (
               <UserCardSkeleton key={index} />
             ))
-          ) : (
-            // 로딩 완료: 실제 데이터
-            mockUsers.map((user) => (
+          ) : filteredUsers.length > 0 ? (
+            // 로딩 완료: 필터링된 데이터
+            filteredUsers.map((user) => (
               <UserCard 
                 key={user.id} 
                 user={user} 
                 onClick={handleUserCardClick}
               />
             ))
+          ) : (
+            // 필터링 결과가 없을 때
+            <div className="no-results">
+              <p>선택한 관심사에 해당하는 사용자가 없습니다.</p>
+            </div>
           )}
         </div>
       </div>
