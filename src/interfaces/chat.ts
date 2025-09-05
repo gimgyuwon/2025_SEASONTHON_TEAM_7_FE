@@ -50,3 +50,10 @@ export type MyChatResponseType = {
   message: string;
   data: MyChatBaseType[];
 };
+
+export interface ItemType {
+  img: string;
+  name?: string;
+  recentMsg: string;
+  recentTime: string;
+}

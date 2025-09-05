@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Labs, Login, ExtraInfo } from "./pages";
+import { Home, Labs, Login, ExtraInfo, Chat } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import { LayoutProvider } from "./contexts/LayoutProvider";
-import { Chat } from "./components/chat";
 
 function App() {
   return (
