@@ -1,31 +1,57 @@
-import { Client } from "@stomp/stompjs";
+// src/utils/stompClient.ts
+import { Client, StompHeaders, type IMessage } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+
+export interface IncomingChatMsg {
+  senderName: string;
+  content: string;
+  sentAt?: string;
+}
+
+const buildAuthHeaders = (rawToken?: string | null): StompHeaders => {
+  if (!rawToken) return {}; // 빈 객체는 OK (index signature 충족)
+  const v = rawToken.startsWith("Bearer ") ? rawToken : `Bearer ${rawToken}`;
+  return { Authorization: v }; // 항상 string
+};
 
 export const createStompClient = (
   endpoint: string,
-  token: string | null,
   roomId: number,
-  onMessage: (message: any) => void
+  onMessage: (msg: {
+    senderName: string;
+    content: string;
+    sentAt?: string;
+  }) => void
 ) => {
   const client = new Client({
     webSocketFactory: () => new SockJS(import.meta.env.VITE_API_URL + endpoint),
-    connectHeaders: token ? { Authorization: `Bearer ${token}` } : {},
     reconnectDelay: 3000,
     debug: () => {},
+    // 재연결 포함: 연결 직전에 최신 토큰을 세션에서 읽어 주입
+    beforeConnect: () => {
+      const token = sessionStorage.getItem("accessToken");
+      client.connectHeaders = buildAuthHeaders(token);
+      console.log(
+        "CONNECT Authorization:",
+        client.connectHeaders.Authorization
+      );
+    },
   });
 
-  // on connect
-  client.onConnect = (frame) => {
-    console.log("STOMP connected", frame);
-    client.subscribe(`/sub/chat-room/${roomId}`, (message) => {
-      console.log("서버에서 온 raw 메시지:", message);
-      const msg = JSON.parse((message as any)._body);
-      console.log("이게 msg", msg);
-      console.log(msg.data.senderName + ": " + msg.data.content);
-      onMessage({
-        senderId: msg.data.senderName,
-        message: msg.data.content,
-      });
+  client.onConnect = () => {
+    client.subscribe(`/sub/chat-room/${roomId}`, (message: IMessage) => {
+      try {
+        const payload = JSON.parse(message.body);
+        const data = payload?.data ?? payload;
+        onMessage({
+          senderName: data?.senderName ?? "알수없음",
+          content: data?.content ?? "(빈 메시지)",
+          sentAt: data?.sentAt,
+        });
+        console.log("try 성공");
+      } catch (e) {
+        console.error("메시지 파싱 실패:", e, message.body);
+      }
     });
   };
 
@@ -34,7 +60,5 @@ export const createStompClient = (
   };
 
   client.activate();
-  console.log("createStompClient 실행되었어요");
-
   return client;
 };

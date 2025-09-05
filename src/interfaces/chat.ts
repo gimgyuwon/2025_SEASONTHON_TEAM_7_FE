@@ -16,5 +16,37 @@ export type ChatRequestType = {
 export type ChatResponseType = {
   success: boolean;
   message: string;
-  data: ChatBaseType[];
+  data: ChatBaseType;
+};
+
+export type MessageBaseType = {
+  messageId: number;
+  chatRoomId: number;
+  senderId: number;
+  senderName: string;
+  content: string;
+  messageType: string;
+  contentType: string;
+  createdAt: TimeStamp;
+};
+
+export type MessageResponseType = {
+  success: true;
+  message: string;
+  data: MessageBaseType[];
+};
+
+export type MyChatBaseType = {
+  chatRoomId: number;
+  otherMemberId: number;
+  otherMemberName: string;
+  lastMessage: string;
+  lastMessageAt: TimeStamp;
+  unreadCount: number;
+};
+
+export type MyChatResponseType = {
+  success: true;
+  message: string;
+  data: MyChatBaseType[];
 };
