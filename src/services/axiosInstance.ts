@@ -67,7 +67,16 @@ export const api = attachInterceptors(
 
 export const apiV1 = attachInterceptors(
   axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL: import.meta.env.VITE_API_URL + "/v1",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+);
+
+export const chatApi = attachInterceptors(
+  axios.create({
+    baseURL: import.meta.env.VITE_API_URL + "/v1/chat-rooms",
     headers: {
       "Content-Type": "application/json",
     },
