@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Labs, Login, ExtraInfo } from "./pages";
+import { Home, Labs, Login, ExtraInfo, Chat, ChatRoom } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import { LayoutProvider } from "./contexts/LayoutProvider";
+import { ChatLab } from "./components/chat";
 
 function App() {
   return (
@@ -13,23 +14,26 @@ function App() {
             {/* 공개 페이지 */}
             <Route path="/" element={<Home />} />
             <Route path="/labs" element={<Labs />} />
-            
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/chatlab" element={<ChatLab />} />
+            <Route path="/chat/:chatRoomId" element={<ChatRoom />} />
+
             {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
-            <Route 
-              path="/login" 
+            <Route
+              path="/login"
               element={
                 <ProtectedRoute requireAuth={false}>
                   <Login />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/signup/extra-info" 
+            <Route
+              path="/signup/extra-info"
               element={
                 <ProtectedRoute requireAuth={false}>
                   <ExtraInfo />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </Layout>

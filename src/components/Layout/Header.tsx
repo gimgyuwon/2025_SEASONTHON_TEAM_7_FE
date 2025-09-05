@@ -1,11 +1,17 @@
-import React from 'react';
-import BellIcon from './BellIcon';
-import closeIcon from '@/assets/Header/close.svg';
-import backIcon from '@/assets/Header/back.svg';
-import moreIcon from '@/assets/Header/more.svg';
-import settingIcon from '@/assets/Header/setting.svg';
+import React from "react";
+import BellIcon from "./BellIcon";
+import closeIcon from "@/assets/Header/close.svg";
+import backIcon from "@/assets/Header/back.svg";
+import moreIcon from "@/assets/Header/more.svg";
+import settingIcon from "@/assets/Header/setting.svg";
 
-export type HeaderType = 'home' | 'close' | 'label-only' | 'back-more' | 'back-only' | 'profile';
+export type HeaderType =
+  | "home"
+  | "close"
+  | "label-only"
+  | "back-more"
+  | "back-only"
+  | "profile";
 
 interface HeaderProps {
   type?: HeaderType;
@@ -16,17 +22,17 @@ interface HeaderProps {
   onSetting?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ 
-  type = 'home', 
-  title = '', 
-  onClose, 
-  onBack, 
-  onMore, 
-  onSetting 
+const Header: React.FC<HeaderProps> = ({
+  type = "label-only",
+  title = "",
+  onClose,
+  onBack,
+  onMore,
+  onSetting,
 }) => {
   const renderHeaderContent = () => {
     switch (type) {
-      case 'home':
+      case "home":
         return (
           <>
             <div className="header-logo">
@@ -36,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({
           </>
         );
 
-      case 'close':
+      case "close":
         return (
           <>
             <div className="header-spacer"></div>
@@ -46,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({
           </>
         );
 
-      case 'label-only':
+      case "label-only":
         return (
           <>
             <div className="header-left">
@@ -56,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({
           </>
         );
 
-      case 'back-more':
+      case "back-more":
         return (
           <>
             <button className="header-icon-btn" onClick={onBack}>
@@ -71,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({
           </>
         );
 
-      case 'back-only':
+      case "back-only":
         return (
           <>
             <button className="header-icon-btn" onClick={onBack}>
@@ -84,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
           </>
         );
 
-      case 'profile':
+      case "profile":
         return (
           <>
             <div className="header-logo">
@@ -110,9 +116,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="header">
-      <div className="header-content">
-        {renderHeaderContent()}
-      </div>
+      <div className="header-content">{renderHeaderContent()}</div>
     </header>
   );
 };

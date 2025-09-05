@@ -1,0 +1,62 @@
+@use "../_typography";
+@use "../_variables";
+
+.chat {
+  display: flex;
+  width: 100vw;
+  height: 74px;
+
+  margin-left: calc(-1 * var(--main-padding, 16px));
+  margin-right: calc(-1 * var(--main-padding, 16px));
+
+  &.even {
+    background-color: #fff;
+  }
+
+  &.odd {
+    background-color: rgba(197, 204, 199, 0.2);
+  }
+
+  &__item {
+    display: flex;
+    flex-grow: 1;
+    padding: variables.$spacing-md;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+  }
+
+  &__profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d8d8d8;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__info {
+    color: #2f2d2b;
+  }
+
+  &__name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__msg {
+    font-size: 13px;
+    color: #555;
+  }
+
+  &__time {
+    color: #7c7c7c;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
