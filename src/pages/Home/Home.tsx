@@ -1,9 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLayout } from '@/services/hooks/useLayout';
 
 const Home = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { setLayoutConfig } = useLayout();
+
+  // 레이아웃 설정
+  useEffect(() => {
+    setLayoutConfig({
+      type: 'home',
+      showHeader: true,
+      showBottomBar: true,
+    });
+  }, [setLayoutConfig]);
 
   useEffect(() => {
     const accessToken = searchParams.get('accessToken');
@@ -21,6 +32,7 @@ const Home = () => {
     // console.log('토큰이 sessionStorage에 저장되었습니다.');
     }
   }, [searchParams]);
+  
   return (
     <div className="wrapper">
       <div className="center">
