@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, Labs, Login, ExtraInfo, Chat } from "./pages";
+import { Home, Labs, Login, ExtraInfo, Chat, ChatRoom } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import { LayoutProvider } from "./contexts/LayoutProvider";
@@ -14,6 +14,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/labs" element={<Labs />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/chat/:chatRoomId" element={<ChatRoom />} />
 
             {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
             <Route
