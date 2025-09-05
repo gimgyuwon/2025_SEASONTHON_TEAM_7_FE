@@ -10,6 +10,7 @@ interface LayoutConfig {
   onBack?: () => void;
   onMore?: () => void;
   onSetting?: () => void;
+  onNotification?: () => void;
 }
 
 interface LayoutContextType {
