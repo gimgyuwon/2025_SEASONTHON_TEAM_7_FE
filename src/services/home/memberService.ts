@@ -6,6 +6,7 @@ import { API_ENDPOINTS } from '@/constant/api';
 interface ApiMemberData {
   memberId: number;
   nickname: string | null;
+  mannerScore: number;
   age: string;
   introduction: string | null;
   interests: string[];
@@ -31,7 +32,7 @@ const transformApiDataToUserCard = (apiData: ApiMemberData): UserCardData => {
     name: apiData.nickname || '익명',
     age: parseInt(apiData.age.replace('대', '')) || 20, // "20대" -> 20
     profileImage: undefined, // API에서 제공하지 않음
-    teaScore: Math.floor(Math.random() * 5) + 1, // 임시 점수 (API에서 제공하지 않음)
+    teaScore: apiData.mannerScore || -1,
     introduction: apiData.introduction || '안녕하세요!',
     hashtags: apiData.interests || []
   };

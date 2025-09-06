@@ -23,7 +23,11 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
         <div className="user-info">
           <span className="user-name">{user.name}</span>
           <span className="user-age">{user.age}대</span><br/>
-          <span className="tea-score">찻잔지수<span className="tea-score-number">{user.teaScore}잔</span></span>
+          {user.teaScore === -1 ? (
+            <span className="tea-score">첫 대화 대기중</span>
+          ) : (
+            <span className="tea-score">찻잔지수<span className="tea-score-number">{user.teaScore}잔</span></span>
+          )}
         </div>
       </div>
       <div className="user-introduction">
