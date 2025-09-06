@@ -1,7 +1,7 @@
-import React from 'react';
-import { useLayout } from '@/services/hooks/useLayout';
-import Header from './Header';
-import BottomBar from './BottomBar';
+import React from "react";
+import { useLayout } from "@/services/hooks/useLayout";
+import Header from "./Header";
+import BottomBar from "./BottomBar";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,12 +9,21 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { layoutConfig } = useLayout();
-  const { type, title, showHeader, showBottomBar, onClose, onBack, onMore, onSetting } = layoutConfig;
+  const {
+    type,
+    title,
+    showHeader,
+    showBottomBar,
+    onClose,
+    onBack,
+    onMore,
+    onSetting,
+  } = layoutConfig;
 
   return (
     <div className="layout">
       {showHeader && (
-        <Header 
+        <Header
           type={type}
           title={title}
           onClose={onClose}
@@ -23,7 +32,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           onSetting={onSetting}
         />
       )}
-      <main className={`main-content ${!showHeader ? 'no-header' : ''}`}>
+      <main
+        className={`main-content ${!showHeader ? "no-header" : ""} ${
+          !showBottomBar ? "no-bottom" : ""
+        }`}
+      >
         {children}
       </main>
       {showBottomBar && <BottomBar />}
