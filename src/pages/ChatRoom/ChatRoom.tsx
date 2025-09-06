@@ -123,7 +123,7 @@ const ChatRoom = () => {
 
   const handleClickQuit = (otherMemberId: number) => {
     console.log("quit btn is clicked");
-    navigate("/review", { state: { otherMemberId } });
+    navigate("/review", { state: { otherMemberId, chatRoomId } });
   };
 
   const handleClickReport = () => {

@@ -3,7 +3,7 @@ import ratingDisabledIcon from "@/assets/Chat/ratingDisabledIcon.svg";
 import { useEffect, useState } from "react";
 import { useLayout } from "@/services/hooks/useLayout";
 import { useLocation, useNavigate } from "react-router-dom";
-import { EvaluateScore } from "@/services/chat/chatService";
+import { ChangeChatStatus, EvaluateScore } from "@/services/chat/chatService";
 
 const Review = () => {
   const title = "오늘의 대화는 얼마나 따뜻했나요?";
@@ -18,6 +18,7 @@ const Review = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const otherMemberId = location.state.otherMemberId;
+  const chatRoomId = location.state.chatRoomId;
 
   // 레이아웃 설정
   useEffect(() => {
@@ -37,6 +38,13 @@ const Review = () => {
         review: word,
       });
       console.log("EvaluateScore try", res);
+
+      // change chat status
+      await ChangeChatStatus({
+        coffeeChatId: chatRoomId,
+        status: "COMPLETED",
+      });
+
       navigate("/chat");
     } catch (err: unknown) {
       console.error("evaluate manner score failed", err);

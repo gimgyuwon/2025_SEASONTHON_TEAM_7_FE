@@ -10,14 +10,17 @@ const Chat = () => {
 
   // Retrieve my chat room
   useEffect(() => {
-    (async () => {
+    const fetchChatRooms = async () => {
       try {
         const res = await RetrieveMyChat();
         setMyRooms(res.data);
+        console.log(res.data);
       } catch (e) {
         console.error("내 채팅방 목록 조회 실패:", e);
       }
-    })();
+    };
+
+    fetchChatRooms();
   }, []);
 
   type ChatNavType = {
@@ -30,7 +33,6 @@ const Chat = () => {
   };
 
   if (myRooms.length == 0) {
-    console.log("myRooms", myRooms);
     return (
       <div className="wrapper label noRooms">아직 생성된 채팅방이 없어요.</div>
     );
