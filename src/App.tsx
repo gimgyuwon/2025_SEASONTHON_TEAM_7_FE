@@ -8,6 +8,7 @@ import {
   ChatRoom,
   Review,
   Notification,
+  Decide,
 } from "./pages";
 import HomeChatRequest from "./pages/Home/HomeChatRequest";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/chat/:chatRoomId" element={<ChatRoom />} />
             <Route path="/review" element={<Review />} />
             <Route path="/notification" element={<Notification />} />
+            <Route path="/notification/decide/:refId" element={<Decide />} />
 
             {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
             <Route
