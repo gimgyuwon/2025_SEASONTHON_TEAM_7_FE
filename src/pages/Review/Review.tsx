@@ -1,6 +1,8 @@
 import ratingIcon from "@/assets/Chat/ratingIcon.svg";
 import ratingDisabledIcon from "@/assets/Chat/ratingDisabledIcon.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLayout } from "@/services/hooks/useLayout";
+import { useNavigate } from "react-router-dom";
 
 const Review = () => {
   const title = "오늘의 대화는 얼마나 따뜻했나요?";
@@ -9,6 +11,19 @@ const Review = () => {
   const wordTitle = "한 마디 남기기";
   const [word, setWord] = useState<string>("");
   const wordEx = "ex. 오늘 대화 정말 즐거웠어요. ";
+
+  const { setLayoutConfig } = useLayout();
+  const navigate = useNavigate();
+
+  // 레이아웃 설정
+  useEffect(() => {
+    setLayoutConfig({
+      type: "close",
+      showHeader: true,
+      showBottomBar: false,
+      onClose: () => navigate(-1),
+    });
+  }, [setLayoutConfig, navigate]);
 
   return (
     <div className="wrapper">
