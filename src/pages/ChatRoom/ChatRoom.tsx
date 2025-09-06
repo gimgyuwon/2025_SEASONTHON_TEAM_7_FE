@@ -12,6 +12,7 @@ const ChatRoom = () => {
   const { setLayoutConfig } = useLayout();
   const location = useLocation();
   const otherMemberId = location.state.otherMemberId;
+  const isClosed = location.state.status == "CLOSED";
   const [moreClick, setMoreClick] = useState<Boolean>(false);
   const navigate = useNavigate();
   const instruction = "채팅종료까지 남은 시간";
@@ -178,13 +179,25 @@ const ChatRoom = () => {
         </div>
         {/* input */}
         <div className="chatRoom__inputBox">
-          <textarea
-            rows={3}
-            className="chatRoom__input body"
-            value={msg}
-            onChange={(e) => setMsg(e.target.value)}
-            placeholder="보낼 메시지를 입력하세요"
-          />
+          {isClosed ? (
+            <textarea
+              rows={3}
+              disabled
+              className="chatRoom__input body"
+              value={msg}
+              onChange={(e) => setMsg(e.target.value)}
+              placeholder="종료된 채팅입니다."
+            />
+          ) : (
+            <textarea
+              rows={3}
+              className="chatRoom__input body"
+              value={msg}
+              onChange={(e) => setMsg(e.target.value)}
+              placeholder="보낼 메시지를 입력하세요"
+            />
+          )}
+
           <button>
             <img src={sendIcon} alt="sendIcon" onClick={handleSendMessage} />
           </button>
