@@ -114,6 +114,7 @@ const ChatRoom = () => {
 
   const handleClickQuit = () => {
     console.log("quit btn is clicked");
+    navigate("/review");
   };
 
   const handleClickReport = () => {

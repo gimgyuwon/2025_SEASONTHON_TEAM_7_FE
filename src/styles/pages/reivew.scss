@@ -1,0 +1,40 @@
+.review {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: full;
+
+  &__title {
+    display: flex;
+    margin-bottom: 8px;
+  }
+
+  &__subTitle {
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  &__rating {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 8px;
+  }
+
+  &__ratingImg {
+    width: 48px;
+    height: 48px;
+  }
+
+  &__wordTitle {
+    margin-top: 47px;
+    margin-bottom: 12px;
+  }
+
+  &__word {
+    height: 48px;
+    width: 358px;
+    padding: 16px 12px;
+  }
+}
