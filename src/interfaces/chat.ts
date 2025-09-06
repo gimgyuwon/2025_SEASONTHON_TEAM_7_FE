@@ -1,4 +1,4 @@
-export type TimeStamp = string;
+import type { ReponseBaseType, TimeStamp } from "./common";
 
 export type ChatBaseType = {
   chatRoomId: number;
@@ -11,11 +11,6 @@ export type ChatBaseType = {
 
 export type ChatRequestType = {
   opponentId: number;
-};
-
-export type ReponseBaseType = {
-  success: boolean;
-  message: string;
 };
 
 export type ChatResponseType = ReponseBaseType & {
@@ -77,3 +72,10 @@ export type ApplyChatRequestType = {
 };
 
 export type ApplyChatResponseType = ReponseBaseType & {};
+
+export type ChangeChatStatusRequestType = {
+  coffeeChatId: number;
+  status: "REQUESTED" | "ACCEPTED" | "DECLINED" | "COMPLETED";
+};
+
+export type ChangeChatStatusResponseType = ReponseBaseType & {};
