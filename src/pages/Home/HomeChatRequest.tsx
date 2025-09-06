@@ -68,7 +68,7 @@ const HomeChatRequest = () => {
             <div className="chat-request-user-hashtags">
               {user.hashtags.map((tag, index) => (
                 <span key={index} className="chat-request-hashtag">
-                  #{tag}
+                  {tag}
                 </span>
               ))}
             </div>
