@@ -14,15 +14,15 @@
 
   &.active {
     color: variables.$text-black;
-    
+
     .bottom-bar-label {
       color: variables.$text-black;
     }
   }
-  
+
   &.inactive {
     color: variables.$disabled;
-    
+
     .bottom-bar-label {
       color: variables.$disabled;
     }
@@ -34,7 +34,7 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    
+
     .bottom-bar-icon-svg {
       width: 100%;
       height: 100%;
