@@ -1,5 +1,6 @@
 import React from 'react';
 import type { UserCardProps } from '@/interfaces/user';
+import { formatLastActiveTime } from '@/utils/formatTime';
 
 const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
   const handleClick = () => {
@@ -16,18 +17,30 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
             <img src={user.profileImage} alt={`${user.name} 프로필`} />
           ) : (
             <div className="profile-placeholder">
-              <span>{user.name?.charAt(0) || '?'}</span>
+              <span>{user.profileImage || user.name?.charAt(0)}</span>
             </div>
           )}
         </div>
         <div className="user-info">
           <span className="user-name">{user.name}</span>
-          <span className="user-age">{user.age}대</span><br/>
+          <div className="user-age-container">
+            <span className="user-age">{user.age}대</span>
+            {user.isActive ? (
+              <span className="active-indicator"></span>
+            ) : (
+              <span className="last-active-time">{formatLastActiveTime(user.lastActiveAt)}</span>
+            )}
+          </div>
           {user.teaScore === -1 ? (
-            <span className="tea-score">첫 대화 대기중</span>
-          ) : (
-            <span className="tea-score">찻잔지수<span className="tea-score-number">{user.teaScore}잔</span></span>
-          )}
+                <span className="tea-score no-score">첫 대화 대기중</span>
+              ) : (
+                <span className="tea-score">
+                  찻잔지수
+                  <span className="tea-score-number">
+                    {user.teaScore}잔
+                  </span>
+                </span>
+              )}
         </div>
       </div>
       <div className="user-introduction">
