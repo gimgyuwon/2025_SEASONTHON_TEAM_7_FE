@@ -31,19 +31,20 @@
   }
 
   &__info {
-    color: #2f2d2b;
+    color: variables.$text-black;
   }
 
   &__time {
-    color: #7c7c7c;
+    color: variables.$text-gray;
     font-size: 12px;
     white-space: nowrap;
   }
 
   &__btn {
-    background-color: #a1cbaf;
-    border: 1px solid #93867a;
+    background-color: variables.$primary-color;
+    border: 1px solid variables.$outline-color;
     border-radius: 4px;
+    min-width: 49px;
     width: 49px;
     height: 30px;
     display: flex;
