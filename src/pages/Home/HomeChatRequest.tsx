@@ -60,12 +60,16 @@ const HomeChatRequest = () => {
               <span className="chat-request-user-name-suffix">님</span>
               <span className="chat-request-user-age">{user.age}대</span>
             </span>
-            <span className="chat-request-tea-score">
-              찻잔지수
-              <span className="chat-request-tea-score-number">
-                {user.teaScore}잔
-              </span>
-            </span>
+            {user.teaScore === -1 ? (
+                <span className="chat-request-tea-score no-score">첫 대화 대기중</span>
+              ) : (
+                <span className="chat-request-tea-score">
+                  찻잔지수
+                  <span className="chat-request-tea-score-number">
+                    {user.teaScore}잔
+                  </span>
+                </span>
+              )}
             <div className="chat-request-user-hashtags">
               {user.hashtags.map((tag, index) => (
                 <span key={index} className="chat-request-hashtag">

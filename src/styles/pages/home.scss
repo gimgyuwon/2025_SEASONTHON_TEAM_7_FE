@@ -293,8 +293,8 @@
 }
 
 .chat-request-profile-image {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 1px solid variables.$primary-color;
   overflow: hidden;
@@ -361,6 +361,9 @@
   background-color: variables.$secondary-color;
   color: variables.$text-black;
   width: fit-content; // 텍스트 크기만큼만 배경색 적용
+  &.no-score {
+    background-color: variables.$third-color;
+  }
 }
 
 .chat-request-tea-score-number {
