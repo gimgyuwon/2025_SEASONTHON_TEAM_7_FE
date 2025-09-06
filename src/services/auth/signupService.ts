@@ -2,7 +2,9 @@ import { API_ENDPOINTS } from '../../constant/api';
 
 export interface SignupData {
   nickname: string;
-  interestedJob: string;
+  interests: string[];
+  memberAge: 'TEENAGER' | 'TWENTIES' | 'THIRTIES' | 'FORTIES' | 'FIFTIES' | 'SIXTIES_PLUS';
+  introduceMySelf: string;
 }
 
 export interface SignupResponse {

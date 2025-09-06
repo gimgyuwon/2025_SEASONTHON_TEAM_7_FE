@@ -22,7 +22,9 @@ const Login = () => {
     <div className="wrapper">
       <div className="login-container">
         <div className="logo-container">
-          <img src={Logo} alt="logo" />
+          <div className="logo-text1">세대를 잇는-대화 </div>
+          <div className="logo-text2">차한잔</div>
+          <img src={Logo} alt="logo" className="logo-img"/>
         </div>
         <Kakao />
       </div>

@@ -11,15 +11,28 @@ export const useSignupFlow = () => {
   const [formData, setFormData] = useState({
     nickname: '',
     interests: [] as InterestId[],
-    ageRange: ''
+    ageRange: '',
+    introduceMySelf: ''
   });
 
   const nextStep = () => {
-    if (!formData.nickname.trim() || !formData.ageRange.trim()) {
-      alert('닉네임과 연령대를 모두 입력해주세요.');
-      return;
+    if (currentStep === 1) {
+      if (!formData.nickname.trim() || !formData.ageRange.trim()) {
+        alert('닉네임과 연령대를 모두 입력해주세요.');
+        return;
+      }
+    } else if (currentStep === 2) {
+      if (formData.interests.length === 0) {
+        alert('관심사를 선택해주세요.');
+        return;
+      }
+    } else if (currentStep === 3) {
+      if (!formData.introduceMySelf.trim()) {
+        alert('자기소개를 입력해주세요.');
+        return;
+      }
     }
-    setCurrentStep(2);
+    setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
@@ -50,11 +63,27 @@ export const useSignupFlow = () => {
     }));
   };
 
-  const submitSignup = async () => {
-    if (formData.interests.length === 0) {
-      alert('관심사를 선택해주세요.');
-      return;
+  const handleIntroduceChange = (introduce: string) => {
+    setFormData(prev => ({
+      ...prev,
+      introduceMySelf: introduce
+    }));
+  };
+
+  // 연령대를 API enum 값으로 변환
+  const convertAgeRangeToMemberAge = (ageRange: string): 'TEENAGER' | 'TWENTIES' | 'THIRTIES' | 'FORTIES' | 'FIFTIES' | 'SIXTIES_PLUS' => {
+    switch (ageRange) {
+      case '10대': return 'TEENAGER';
+      case '20대': return 'TWENTIES';
+      case '30대': return 'THIRTIES';
+      case '40대': return 'FORTIES';
+      case '50대': return 'FIFTIES';
+      case '60대 이상': return 'SIXTIES_PLUS';
+      default: return 'TWENTIES'; // 기본값
     }
+  };
+
+  const submitSignup = async () => {
 
     const signupToken = tokenService.getSignupToken();
     if (!signupToken) {
@@ -66,12 +95,14 @@ export const useSignupFlow = () => {
     setIsLoading(true);
 
     try {
-      const interestsString = formData.interests.join(',');
       const signupData: SignupData = {
         nickname: formData.nickname.trim(),
-        interestedJob: interestsString
+        interests: formData.interests,
+        memberAge: convertAgeRangeToMemberAge(formData.ageRange),
+        introduceMySelf: formData.introduceMySelf.trim()
       };
 
+      console.log('회원가입 API 호출 데이터:', signupData);
       const response = await signupService.signup(signupData, signupToken);
 
       // 토큰을 sessionStorage에 저장
@@ -104,6 +135,7 @@ export const useSignupFlow = () => {
     handleInputChange,
     handleAgeChange,
     handleInterestsChange,
+    handleIntroduceChange,
     submitSignup
   };
 };

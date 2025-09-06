@@ -2,20 +2,41 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 1rem;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 2.12rem;
+  justify-content: center;
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 91px;
+}
+
+.logo-text1 {
+  font-family: neurimbo Gothic;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+}
+
+.logo-text2 {
+  font-family: neurimbo Gothic;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 48px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .logo-img {
-  width: 6rem;
-  height: 6rem;
+  padding: 69px 18.21px 0px 83px;
 }
