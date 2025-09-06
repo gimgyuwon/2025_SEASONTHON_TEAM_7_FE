@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLayout } from "@/services/hooks/useLayout";
 import { getMyProfile } from "@/services/member/myProfileService";
 import type { MyProfileData } from "@/interfaces/user";
@@ -6,6 +7,7 @@ import rightIcon from "@/assets/My/right-icon.svg";
 import { MySkeleton } from "./_components";
 
 const My = () => {
+  const navigate = useNavigate();
   const { setLayoutConfig } = useLayout();
   const [profile, setProfile] = useState<MyProfileData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +46,7 @@ const My = () => {
   };
 
   const handleViewWarmth = () => {
-    console.log('받은 온기 보기 기능 추후 구현');
+    navigate('/my-reviews');
   };
 
   if (isLoading) {
@@ -156,17 +158,19 @@ const My = () => {
                       )}
                     </div>
                     <div className="my-warmth-content">
-                      <div className="my-warmth-name">{review.reviewerName}</div>
+                      <div className="my-warmth-header">
+                        <div className="my-warmth-name">{review.reviewerName}</div>
+                        <div className="my-warmth-date">
+                          {new Date(review.reviewDate).toLocaleDateString('ko-KR', {
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </div>
+                      </div>
                       <div className="my-warmth-message">
                         {review.reviewerComment}
                       </div>
                     </div>
-                  </div>
-                  <div className="my-warmth-date">
-                    {new Date(review.reviewDate).toLocaleDateString('ko-KR', {
-                      month: 'long',
-                      day: 'numeric'
-                    })}
                   </div>
                 </div>
               ))

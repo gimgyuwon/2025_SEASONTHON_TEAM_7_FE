@@ -11,6 +11,7 @@ import {
   Decide,
 } from "./pages";
 import My from "./pages/My";
+import { MyReview } from "./pages/MyReview";
 import HomeChatRequest from "./pages/Home/HomeChatRequest";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
@@ -33,6 +34,7 @@ function App() {
             <Route path="/review" element={<Review />} />
             <Route path="/notification" element={<Notification />} />
             <Route path="/profile" element={<My />} />
+            <Route path="/my-reviews" element={<MyReview />} />
             <Route path="/notification/decide/:refId" element={<Decide />} />
 
             {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
