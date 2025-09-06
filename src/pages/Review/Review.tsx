@@ -2,7 +2,8 @@ import ratingIcon from "@/assets/Chat/ratingIcon.svg";
 import ratingDisabledIcon from "@/assets/Chat/ratingDisabledIcon.svg";
 import { useEffect, useState } from "react";
 import { useLayout } from "@/services/hooks/useLayout";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { EvaluateScore } from "@/services/chat/chatService";
 
 const Review = () => {
   const title = "오늘의 대화는 얼마나 따뜻했나요?";
@@ -11,9 +12,12 @@ const Review = () => {
   const wordTitle = "한 마디 남기기";
   const [word, setWord] = useState<string>("");
   const wordEx = "ex. 오늘 대화 정말 즐거웠어요. ";
+  const buttonTitle = "온기 남기기";
 
   const { setLayoutConfig } = useLayout();
   const navigate = useNavigate();
+  const location = useLocation();
+  const otherMemberId = location.state.otherMemberId;
 
   // 레이아웃 설정
   useEffect(() => {
@@ -24,6 +28,20 @@ const Review = () => {
       onClose: () => navigate(-1),
     });
   }, [setLayoutConfig, navigate]);
+
+  const handleClickButton = async () => {
+    try {
+      const res = await EvaluateScore({
+        memberId: otherMemberId,
+        rate: rating,
+        review: word,
+      });
+      console.log("EvaluateScore try", res);
+      navigate("/chat");
+    } catch (err: unknown) {
+      console.error("evaluate manner score failed", err);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -65,6 +83,11 @@ const Review = () => {
           placeholder={wordEx}
           onChange={(e) => setWord(e.target.value)}
         />
+
+        {/* button */}
+        <div className="review__btn label" onClick={() => handleClickButton()}>
+          {buttonTitle}
+        </div>
       </div>
     </div>
   );

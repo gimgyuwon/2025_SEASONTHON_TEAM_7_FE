@@ -1,7 +1,7 @@
 import type { RenderMsgProps } from "@/interfaces/chat";
 import { RetrieveSpecificChat } from "@/services/chat/chatService";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import sendIcon from "@/assets/Chat/sendIcon.svg";
 import { createStompClient, type IncomingChatMsg } from "@/utils";
 import type { Client } from "@stomp/stompjs";
@@ -9,6 +9,8 @@ import { useLayout } from "@/services/hooks/useLayout";
 
 const ChatRoom = () => {
   const { setLayoutConfig } = useLayout();
+  const location = useLocation();
+  const otherMemberId = location.state.otherMemberId;
   const [moreClick, setMoreClick] = useState<Boolean>(false);
   const navigate = useNavigate();
   const instruction = "채팅종료까지 남은 시간";
@@ -112,9 +114,9 @@ const ChatRoom = () => {
     setMsg("");
   };
 
-  const handleClickQuit = () => {
+  const handleClickQuit = (otherMemberId: number) => {
     console.log("quit btn is clicked");
-    navigate("/review");
+    navigate("/review", { state: { otherMemberId } });
   };
 
   const handleClickReport = () => {
@@ -126,7 +128,10 @@ const ChatRoom = () => {
       {/* more modal */}
       {moreClick && (
         <div className="moreBox body">
-          <div className="moreBox__top" onClick={() => handleClickQuit()}>
+          <div
+            className="moreBox__top"
+            onClick={() => handleClickQuit(otherMemberId)}
+          >
             대화 종료하기
           </div>
           <div className="moreBox__bottom" onClick={() => handleClickReport()}>

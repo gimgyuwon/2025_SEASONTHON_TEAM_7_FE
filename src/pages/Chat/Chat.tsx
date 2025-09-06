@@ -20,8 +20,13 @@ const Chat = () => {
     })();
   }, []);
 
-  const handleClickRoom = (chatRoomId: number) => {
-    navigate(`${chatRoomId}`);
+  type ChatNavType = {
+    chatRoomId: number;
+    otherMemberId: number;
+  };
+
+  const handleClickRoom = ({ chatRoomId, otherMemberId }: ChatNavType) => {
+    navigate(`${chatRoomId}`, { state: { otherMemberId } });
   };
 
   if (myRooms.length == 0) {
@@ -39,7 +44,12 @@ const Chat = () => {
           key={idx}
           item={item}
           bgColor={idx % 2 === 0 ? "even" : "odd"}
-          onClick={() => handleClickRoom(item.chatRoomId)}
+          onClick={() =>
+            handleClickRoom({
+              chatRoomId: item.chatRoomId,
+              otherMemberId: item.otherMemberId,
+            })
+          }
         />
       ))}
     </div>

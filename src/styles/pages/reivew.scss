@@ -37,4 +37,18 @@
     width: 358px;
     padding: 16px 12px;
   }
+
+  &__btn {
+    position: absolute;
+    bottom: 0px;
+    background-color: #a1cbaf;
+    border: 1px solid #2f2d2b;
+    width: 358px;
+    padding: 10px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+  }
 }
