@@ -22,7 +22,7 @@ const Onboard2 = () => {
     // 온보딩 완료 처리
     onboardService.setOnboarded();
     // 홈으로 이동
-    navigate('/');
+    navigate('/login');
   };
 
   return (

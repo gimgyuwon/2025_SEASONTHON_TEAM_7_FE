@@ -4,6 +4,7 @@ import { useLayout } from '@/services/hooks/useLayout';
 import { INTEREST_CATEGORIES } from '@/interfaces/interests';
 import { getAllMembers } from '@/services/home/memberService';
 import { onboardService } from '@/services/onboard/onboardService';
+import { tokenService } from '@/services/auth/tokenService';
 import type { UserCardData } from '@/interfaces/user';
 import UserCard from './_components/UserCard';
 import UserCardSkeleton from './_components/UserCardSkeleton';
@@ -17,9 +18,12 @@ const Home = () => {
   const [users, setUsers] = useState<UserCardData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  // 온보딩 체크
+  // 액세스토큰 및 온보딩 체크
   useEffect(() => {
-    if (!onboardService.isOnboarded()) {
+    const hasAccessToken = !!tokenService.getAccessToken();
+    const isOnboarded = onboardService.isOnboarded();
+    
+    if (!hasAccessToken || !isOnboarded) {
       navigate('/splash');
       return;
     }
