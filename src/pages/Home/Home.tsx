@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useLayout } from '@/services/hooks/useLayout';
 import { INTEREST_CATEGORIES } from '@/interfaces/interests';
-import { mockUsers } from '@/data/mockUsers';
+import { getAllMembers } from '@/services/home/memberService';
+import type { UserCardData } from '@/interfaces/user';
 import UserCard from './_components/UserCard';
 import UserCardSkeleton from './_components/UserCardSkeleton';
 
@@ -12,6 +13,8 @@ const Home = () => {
   const { setLayoutConfig } = useLayout();
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState<UserCardData[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // 레이아웃 설정
   useEffect(() => {
@@ -40,13 +43,23 @@ const Home = () => {
     }
   }, [searchParams]);
 
-  // 로딩 시뮬레이션 (실제 API 호출 시 교체)
+  // 멤버 목록 조회
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000); // 2초 후 로딩 완료
+    const fetchMembers = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const membersData = await getAllMembers();
+        setUsers(membersData);
+      } catch (err) {
+        console.error('멤버 목록 조회 실패:', err);
+        setError(err instanceof Error ? err.message : '멤버 목록을 불러오는데 실패했습니다.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    fetchMembers();
   }, []);
 
   // 관심사 클릭 핸들러
@@ -64,28 +77,34 @@ const Home = () => {
 
   // 유저 카드 클릭 핸들러
   const handleUserCardClick = (userId: string) => {
-    const user = mockUsers.find(u => u.id === userId);
+    const user = users.find(u => u.id === userId);
     if (user) {
       navigate('/chat-request', { state: user });
     }
   };
 
   // 관심사에 따른 유저 필터링
-  const filteredUsers = mockUsers.filter(user => {
+  const filteredUsers = users.filter(user => {
     // 아무것도 선택되지 않았으면 모든 유저 표시
     if (selectedInterests.length === 0) {
       return true;
     }
     
-    // 선택된 관심사들의 label을 가져옴
-    const selectedInterestLabels = selectedInterests.map(id => 
-      INTEREST_CATEGORIES.find(cat => cat.id === id)?.label
-    ).filter(Boolean); // undefined 제거
+    // 디버깅 로그 추가
+    // console.log('필터링 디버깅:', {
+    //   selectedInterests,
+    //   userHashtags: user.hashtags,
+    //   userName: user.name
+    // });
     
     // 유저의 해시태그 중 하나라도 선택된 관심사와 일치하면 true
-    return user.hashtags.some(hashtag => 
-      selectedInterestLabels.includes(hashtag)
+    // selectedInterests는 이미 id 형태('#영화')이므로 직접 비교
+    const isMatch = user.hashtags.some(hashtag => 
+      selectedInterests.includes(hashtag)
     );
+    
+    // console.log('매칭 결과:', isMatch);
+    return isMatch;
   });
   
   return (
@@ -106,7 +125,13 @@ const Home = () => {
         
         {/* 유저 카드 그리드 */}
         <div className="user-cards-grid">
-          {isLoading ? (
+          {error ? (
+            // 에러 발생 시
+            <div className="error-message">
+              <p>{error}</p>
+              <button onClick={() => window.location.reload()}>다시 시도</button>
+            </div>
+          ) : isLoading ? (
             // 로딩 중: 스켈레톤 UI
             Array.from({ length: 6 }).map((_, index) => (
               <UserCardSkeleton key={index} />

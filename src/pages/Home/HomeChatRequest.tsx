@@ -29,13 +29,14 @@ const HomeChatRequest = () => {
 
   const handleApplyChat = async () => {
     try {
+      const receiverId = parseInt(user.userId);
       const res = await ApplyChat({
-        receiverId: 1,
+        receiverId: receiverId,
       });
-      console.log("채팅 신청:", user.name);
+      // console.log(`채팅 신청: ${user.name} (ID: ${receiverId})`);
       console.log("res", res);
     } catch (err: unknown) {
-      console.error("evaluate manner score failed", err);
+      console.error("채팅 신청 실패:", err);
     }
   };
 
@@ -68,7 +69,7 @@ const HomeChatRequest = () => {
             <div className="chat-request-user-hashtags">
               {user.hashtags.map((tag, index) => (
                 <span key={index} className="chat-request-hashtag">
-                  #{tag}
+                  {tag}
                 </span>
               ))}
             </div>
