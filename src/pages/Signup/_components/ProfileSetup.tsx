@@ -40,7 +40,7 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
     <>
       <form className="extra-info-form">
         <div className="form-group">
-          <label htmlFor="nickname">닉네임</label>
+          <label htmlFor="nickname" className="nickname-label">닉네임</label>
           <input
             type="text"
             id="nickname"
@@ -58,14 +58,14 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
           onAgeChange={onAgeChange}
         />
         
-        <div className="btn-primary">
-          <button 
-            type="button" 
-            onClick={onNext}
-          >
-            다음
-          </button>
-        </div>
+
+        <button 
+          type="button" 
+          className="btn btn-primary extra-info-btn"
+          onClick={onNext}
+        >
+        다음
+        </button>
       </form>
     </>
   );

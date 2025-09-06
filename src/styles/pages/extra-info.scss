@@ -9,15 +9,22 @@
 
 
 .extra-info-form {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px); // 헤더 높이를 제외한 전체 높이
+  
   .form-group {
     margin-bottom: 2rem;
     
     label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 16px;
       @extend .label;
     }
-    
+
+    .nickname-label {
+      margin-bottom: 16px;
+    }
     input,
     select {
       width: 100%;
@@ -30,13 +37,27 @@
       @extend .body;
       &:focus {
         outline: none;
+        background-color: white;
         border-color: variables.$primary-color;
       }
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
     }
     
     select {
       background: white;
       cursor: pointer;
+    }
+    
+    .character-count {
+      text-align: right;
+      margin-top: 0.5rem;
+      @extend .caption2;
+      color: variables.$text-gray;
     }
   }
 }
@@ -47,47 +68,40 @@
   
   .age-range-label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 16px;
     @extend .label;
   }
   
   .age-range-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
   }
   
   .age-range-btn {
-    padding: 0.65rem 1rem;
-    border: 1px solid #e0e0e0;
+    padding: 10px 16px;
     border-radius: 4px;
     background: white;
-    color: variables.$black;
+    color: variables.$text-black;
     @extend .body;
+    width: fit-content;
     cursor: pointer;
     transition: all 0.3s ease;
     min-height: 2.5rem;
-    
-    &:hover {
-      border-color: variables.$primary-color;
-      background: #f8f9fa;
-    }
+    border: solid 1px variables.$outline-color;
     
     &.selected {
-      background: variables.$primary-color;
-      border-color: variables.$primary-color;
-      color: white;
-      
-      &:hover {
-        background: variables.$primary-color;
-        border-color: variables.$primary-color;
-      }
+      background: variables.$secondary-color;
+      border-color: solid 1px variables.$outline-color;
     }
-    
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.25);
-    }
+  }
+}
+
+.extra-info-btn {
+  margin-top: auto;
+  &.submit-btn {
+    margin-top: 91px;
   }
 }
 
@@ -109,40 +123,25 @@
   
   .interest-grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   
   .interest-btn {
-    padding: 0.65rem 1rem;
-    border: 1px solid #e0e0e0;
+    padding: 14px 0px;
+    border: variables.$outline-color 1px solid;
     border-radius: 4px;
     background: white;
-    color: variables.$black;
+    color: variables.$text-black;
     @extend .body;
     cursor: pointer;
     transition: all 0.3s ease;
     min-height: 2.5rem;
-    
-    &:hover {
-      border-color: variables.$primary-color;
-      background: #f8f9fa;
-    }
+    text-align: center;
+    white-space: nowrap;
     
     &.selected {
-      background: variables.$primary-color;
-      border-color: variables.$primary-color;
-      color: white;
-      
-      &:hover {
-        background: variables.$primary-color;
-        border-color: variables.$primary-color;
-      }
-    }
-    
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.25);
+      background: variables.$secondary-color;
     }
   }
 }
@@ -152,3 +151,46 @@
   margin-top: 2rem;
 }
 
+.textarea-container {
+  position: relative;
+}
+
+.introduce-textarea {
+  border: variables.$outline-color 1px solid;
+  border-radius: 4px;
+  width: 100%;
+  padding: 12px;
+  padding-bottom: 40px; // 글자 수 카운터를 위한 공간 확보
+  @extend .body;
+  color: variables.$text-black;
+  &:focus {
+    outline: none;
+  }
+}
+
+.character-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-family: Elice DX Neolli;
+  font-weight: 300;
+  font-style: Medium;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: variables.$text-gray;
+  pointer-events: none; // 클릭 이벤트 방해하지 않도록
+  .character-count-number {
+    font-weight: 500;
+  }
+}
+
+.complete-title {
+  @extend .title;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 137px;
+  padding-bottom: 40px;
+}
