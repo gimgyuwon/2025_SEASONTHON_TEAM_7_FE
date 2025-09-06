@@ -44,7 +44,15 @@ const attachInterceptors = (instance: AxiosInstance) => {
         // 특정 페이지들은 리다이렉트하지 않도록 설정
         const currentPath = window.location.pathname;
         const noRedirectPaths = ["/login", "/signup"]; // 추후 수정 예정
-        if (!noRedirectPaths.includes(currentPath)) {
+        
+        // 특정 엔드포인트들은 리다이렉트하지 않도록 설정 (토큰 없이도 호출 가능한 API)
+        const requestUrl = error.config?.url || "";
+        const noRedirectEndpoints = ["/auth"]; // 닉네임 중복 체크 등
+        
+        const shouldRedirect = !noRedirectPaths.includes(currentPath) && 
+                              !noRedirectEndpoints.some(endpoint => requestUrl.includes(endpoint));
+        
+        if (shouldRedirect) {
           window.location.href = "/login";
         }
       }

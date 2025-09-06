@@ -5,11 +5,14 @@ import { API_ENDPOINTS } from "@/constant/api";
 // API 응답 타입 정의
 interface ApiMemberData {
   memberId: number;
+  profileImageUrl: string | null;
   nickname: string | null;
   mannerScore: number;
   age: string;
   introduction: string | null;
   interests: string[];
+  isActive: boolean;
+  lastActiveAt: string;
 }
 
 interface MemberApiResponse {
@@ -31,10 +34,12 @@ const transformApiDataToUserCard = (apiData: ApiMemberData): UserCardData => {
     userId: apiData.memberId.toString(),
     name: apiData.nickname || "익명",
     age: parseInt(apiData.age.replace("대", "")) || 20, // "20대" -> 20
-    profileImage: undefined, // API에서 제공하지 않음
-    teaScore: apiData.mannerScore || -1,
+    profileImage: apiData.profileImageUrl || undefined, // API에서 제공하지 않음
+    teaScore: apiData.mannerScore ? Math.round(apiData.mannerScore * 10) / 10 : -1, // 소수점 한 자리까지만
     introduction: apiData.introduction || "안녕하세요!",
     hashtags: apiData.interests || [],
+    isActive: apiData.isActive,
+    lastActiveAt: apiData.lastActiveAt,
   };
 };
 
@@ -65,9 +70,18 @@ export const getMembersByInterests = async (
       return allMembers;
     }
 
-    return allMembers.filter((member) =>
-      member.hashtags.some((hashtag) => interests.includes(hashtag))
-    );
+    return allMembers
+      .filter((member) =>
+        member.hashtags.some((hashtag) => interests.includes(hashtag))
+      )
+      .sort((a, b) => {
+        // 매칭되는 관심사 개수 계산
+        const aMatches = a.hashtags.filter(hashtag => interests.includes(hashtag)).length;
+        const bMatches = b.hashtags.filter(hashtag => interests.includes(hashtag)).length;
+        
+        // 매칭 개수가 많은 순서대로 정렬 (내림차순)
+        return bMatches - aMatches;
+      });
   } catch (error) {
     console.error("관심사별 멤버 조회 실패:", error);
     throw error;

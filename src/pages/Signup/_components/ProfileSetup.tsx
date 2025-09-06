@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import AgeRangeSelector from './AgeRangeSelector';
 import { useLayout } from '@/services/hooks/useLayout';
 import { useNavigate } from 'react-router-dom';
+import { checkNicknameDuplicate } from '@/services/auth/signupService';
 
 interface ProfileSetupProps {
   formData: {
@@ -24,6 +25,43 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
 }) => {
   const { setLayoutConfig } = useLayout();
   const navigate = useNavigate();
+  const [nicknameStatus, setNicknameStatus] = useState<'idle' | 'checking' | 'available' | 'duplicate'>('idle');
+  const [nicknameMessage, setNicknameMessage] = useState('');
+  // 닉네임 중복 체크 (debounce 적용)
+  const checkNickname = useCallback(async (nickname: string) => {
+    if (!nickname || nickname.length < 2) {
+      setNicknameStatus('idle');
+      setNicknameMessage('');
+      return;
+    }
+
+    setNicknameStatus('checking');
+    setNicknameMessage('확인 중...');
+
+    try {
+      const isAvailable = await checkNicknameDuplicate(nickname);
+      if (isAvailable) {
+        setNicknameStatus('available');
+        setNicknameMessage('사용가능한 닉네임이에요.');
+      } else {
+        setNicknameStatus('duplicate');
+        setNicknameMessage('이미 누군가가 사용중인 닉네임이에요.');
+      }
+    } catch (error) {
+      setNicknameStatus('idle');
+      setNicknameMessage('');
+    }
+  }, []);
+
+  // 닉네임 변경 시 debounce 적용
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      checkNickname(formData.nickname);
+    }, 500); // 500ms 후에 체크
+
+    return () => clearTimeout(timer);
+  }, [formData.nickname, checkNickname]);
+
   useEffect(() => {
     setLayoutConfig({
       type: 'back-only',
@@ -50,7 +88,13 @@ const ProfileSetup: React.FC<ProfileSetupProps> = ({
             placeholder="2-8자 한글"
             required
             maxLength={16}
+            className={nicknameStatus === 'available' ? 'valid' : nicknameStatus === 'duplicate' ? 'invalid' : ''}
           />
+          {nicknameMessage && (
+            <div className={`nickname-message ${nicknameStatus === 'available' ? 'success' : nicknameStatus === 'duplicate' ? 'error' : 'checking'}`}>
+              {nicknameMessage}
+            </div>
+          )}
         </div>
 
         <AgeRangeSelector

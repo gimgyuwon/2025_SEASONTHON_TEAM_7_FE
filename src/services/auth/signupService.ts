@@ -1,4 +1,5 @@
 import { API_ENDPOINTS } from '../../constant/api';
+import { apiV1 } from '../axiosInstance';
 
 export interface SignupData {
   nickname: string;
@@ -12,6 +13,19 @@ export interface SignupResponse {
   refreshToken?: string;
   message?: string;
 }
+
+// 닉네임 중복 체크
+export const checkNicknameDuplicate = async (nickname: string): Promise<boolean> => {
+  try {
+    const response = await apiV1.post('/auth', null, {
+      params: { nickname }
+    });
+    return response.data.data; // true면 사용 가능, false면 중복
+  } catch (error) {
+    console.error('닉네임 중복 체크 실패:', error);
+    throw new Error('닉네임 중복 체크에 실패했습니다.');
+  }
+};
 
 export const signupService = {
   async signup(data: SignupData, token: string): Promise<SignupResponse> {

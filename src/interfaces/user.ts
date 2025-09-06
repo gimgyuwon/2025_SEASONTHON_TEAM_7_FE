@@ -9,6 +9,8 @@ export interface UserCardData {
   teaScore?: number; // 찻잔지수
   introduction: string;
   hashtags: string[];
+  isActive: boolean;
+  lastActiveAt: string;
 }
 
 export interface UserCardProps {

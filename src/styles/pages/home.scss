@@ -110,17 +110,38 @@
 .user-info {
   flex: 1;
   min-width: 0; // 텍스트 오버플로우 방지
+  flex-direction: row;
 }
 
 .user-name {
   @extend .caption1;
   margin-bottom: 2px;
-  margin-right: 8px;
+  margin-right: 4px;
+}
+
+.user-age-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .user-age {
   @extend .caption2;
   color: variables.$text-gray;
+}
+
+.active-indicator {
+  width: 6px;
+  height: 6px;
+  background-color: #4CAF50; // 초록색
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.last-active-time {
+  @extend .caption2;
+  color: variables.$text-gray;
+  font-size: 11px;
 }
 
 .tea-score {
@@ -129,6 +150,9 @@
   border-radius: 2px;
   background-color: variables.$secondary-color;
   color: variables.$text-black;
+  &.no-score {
+    background-color: variables.$third-color;
+  }
 }
 
 .tea-score-number {

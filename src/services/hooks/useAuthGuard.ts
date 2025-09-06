@@ -7,24 +7,24 @@ export const useAuthGuard = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const hasToken = tokenService.hasAnyToken();
+    const hasAccessToken = !!tokenService.getAccessToken();
     const isLoginPage = location.pathname === '/login';
 
-    // 토큰이 없는데 보호된 페이지에 접근하려고 하면 /login으로 리다이렉트
-    if (!hasToken && !isLoginPage && location.pathname !== '/') {
+    // 액세스 토큰이 없는데 보호된 페이지에 접근하려고 하면 /login으로 리다이렉트
+    if (!hasAccessToken && !isLoginPage && location.pathname !== '/') {
       navigate('/login');
       return;
     }
 
-    // 토큰이 있는데 /login 페이지에 접근하려고 하면 홈으로 리다이렉트
-    if (hasToken && isLoginPage) {
+    // 액세스 토큰이 있는데 /login 페이지에 접근하려고 하면 홈으로 리다이렉트
+    if (hasAccessToken && isLoginPage) {
       navigate('/');
       return;
     }
   }, [location.pathname, navigate]);
 
   return {
-    hasToken: tokenService.hasAnyToken(),
+    hasToken: !!tokenService.getAccessToken(),
     isAuthenticated: !!tokenService.getAccessToken()
   };
 };

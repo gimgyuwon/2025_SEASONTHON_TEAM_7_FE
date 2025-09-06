@@ -83,29 +83,42 @@ const Home = () => {
     }
   };
 
-  // 관심사에 따른 유저 필터링
-  const filteredUsers = users.filter(user => {
-    // 아무것도 선택되지 않았으면 모든 유저 표시
-    if (selectedInterests.length === 0) {
-      return true;
-    }
-    
-    // 디버깅 로그 추가
-    // console.log('필터링 디버깅:', {
-    //   selectedInterests,
-    //   userHashtags: user.hashtags,
-    //   userName: user.name
-    // });
-    
-    // 유저의 해시태그 중 하나라도 선택된 관심사와 일치하면 true
-    // selectedInterests는 이미 id 형태('#영화')이므로 직접 비교
-    const isMatch = user.hashtags.some(hashtag => 
-      selectedInterests.includes(hashtag)
-    );
-    
-    // console.log('매칭 결과:', isMatch);
-    return isMatch;
-  });
+  // 관심사에 따른 유저 필터링 및 정렬
+  const filteredUsers = users
+    .filter(user => {
+      // 아무것도 선택되지 않았으면 모든 유저 표시
+      if (selectedInterests.length === 0) {
+        return true;
+      }
+      
+      // 유저의 해시태그 중 하나라도 선택된 관심사와 일치하면 true
+      // selectedInterests는 이미 id 형태('#영화')이므로 직접 비교
+      const isMatch = user.hashtags.some(hashtag => 
+        selectedInterests.includes(hashtag)
+      );
+      
+      return isMatch;
+    })
+    .sort((a, b) => {
+      // 1. isActive 기준으로 먼저 정렬 (true가 위로)
+      if (a.isActive !== b.isActive) {
+        return b.isActive ? 1 : -1; // true가 false보다 위에 오도록
+      }
+      
+      // 2. isActive가 같은 경우
+      if (a.isActive && b.isActive) {
+        // 둘 다 active인 경우: 관심사 매칭 개수 기준 정렬
+        if (selectedInterests.length > 0) {
+          const aMatches = a.hashtags.filter(hashtag => selectedInterests.includes(hashtag)).length;
+          const bMatches = b.hashtags.filter(hashtag => selectedInterests.includes(hashtag)).length;
+          return bMatches - aMatches;
+        }
+        return 0;
+      } else {
+        // 둘 다 inactive인 경우: lastActiveAt 기준 최신순 정렬
+        return new Date(b.lastActiveAt).getTime() - new Date(a.lastActiveAt).getTime();
+      }
+    });
   
   return (
     <div className="wrapper">

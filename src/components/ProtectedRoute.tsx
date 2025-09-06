@@ -12,8 +12,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requireAuth = true,
 }) => {
   const location = useLocation();
-  const hasToken = tokenService.hasAnyToken();
-  const isAuthenticated = !!tokenService.getAccessToken();
+  const hasAccessToken = !!tokenService.getAccessToken();
+  const isAuthenticated = hasAccessToken;
 
   // 인증이 필요한 페이지인데 토큰이 없는 경우
   if (requireAuth && !isAuthenticated) {
@@ -21,8 +21,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // 비인증 사용자만 접근 가능한 페이지(로그인, 회원가입)인데 토큰이 있는 경우
-  if (!requireAuth && hasToken) {
+  // 비인증 사용자만 접근 가능한 페이지(로그인, 회원가입)인데 액세스 토큰이 있는 경우
+  if (!requireAuth && hasAccessToken) {
     return <Navigate to="/" replace />;
   }
 
