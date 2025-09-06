@@ -6,46 +6,50 @@ import { useLayout } from '@/services/hooks/useLayout';
 interface InterestSetupProps {
   selectedInterests: InterestId[];
   onInterestsChange: (interests: InterestId[]) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  isLoading: boolean;
+  onNext: () => void;
   onBack: () => void;
 }
 
 const InterestSetup: React.FC<InterestSetupProps> = ({
   selectedInterests,
   onInterestsChange,
-  onSubmit,
-  isLoading,
+  onNext,
   onBack
 }) => {
   const { setLayoutConfig } = useLayout();
   useEffect(() => {
     setLayoutConfig({
       type: 'back-only',
-      title: '관심사 설정',
+      title: '프로필 설정',
       showHeader: true,
       showBottomBar: false,
       onBack: onBack,
     });
   }, [setLayoutConfig, onBack]);
+  const handleNext = () => {
+    if (selectedInterests.length === 0) {
+      alert('관심사를 선택해주세요.');
+      return;
+    }
+    onNext();
+  };
+
   return (
     <>
-      
-      <form onSubmit={onSubmit} className="extra-info-form">
+      <div className="extra-info-form">
         <InterestSelector
           selectedInterests={selectedInterests}
           onInterestsChange={onInterestsChange}
         />
         
-        <div className="btn-primary">
-          <button 
-            type="submit" 
-            disabled={isLoading}
-          >
-            {isLoading ? '처리 중...' : '완료'}
-          </button>
-        </div>
-      </form>
+        <button 
+          type="button" 
+          className="btn btn-primary extra-info-btn"
+          onClick={handleNext}
+        >
+          다음
+        </button>
+      </div>
     </>
   );
 };

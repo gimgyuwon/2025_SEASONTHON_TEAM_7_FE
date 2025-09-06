@@ -12,12 +12,19 @@ const InterestSelector: React.FC<InterestSelectorProps> = ({
   onInterestsChange
 }) => {
   const handleInterestToggle = (interestId: InterestId) => {
-    // 현재는 한 개만 선택 가능 (나중에 3개로 확장 예정)
-    const newSelectedInterests = selectedInterests.includes(interestId)
-      ? [] // 선택 해제
-      : [interestId]; // 새로운 항목만 선택
-    
-    onInterestsChange(newSelectedInterests);
+    if (selectedInterests.includes(interestId)) {
+      // 이미 선택된 항목이면 선택 해제
+      const newSelectedInterests = selectedInterests.filter(id => id !== interestId);
+      onInterestsChange(newSelectedInterests);
+    } else {
+      // 새로운 항목 선택 (최대 3개까지)
+      if (selectedInterests.length < 3) {
+        const newSelectedInterests = [...selectedInterests, interestId];
+        onInterestsChange(newSelectedInterests);
+      } else {
+        alert('관심사는 최대 3개까지 선택할 수 있습니다.');
+      }
+    }
   };
 
   return (
