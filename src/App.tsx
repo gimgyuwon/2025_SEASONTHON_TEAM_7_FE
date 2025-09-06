@@ -17,12 +17,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import { LayoutProvider } from "./contexts/LayoutProvider";
 import { ChatLab } from "./components/chat";
+import ScrollToTop from "./utils/scrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
       <LayoutProvider>
         <Layout>
+          <ScrollToTop />
           <Routes>
             {/* 공개 페이지 */}
             <Route path="/" element={<Home />} />
