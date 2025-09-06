@@ -13,6 +13,7 @@ const ChatRoom = () => {
   const { setLayoutConfig } = useLayout();
   const location = useLocation();
   const otherMemberId = location.state.otherMemberId;
+  const otherMemberName = location.state.otherMemberName;
   const isClosed = location.state.status == "CLOSED";
   const unreadCount = location.state.unreadCount;
   const [moreClick, setMoreClick] = useState<Boolean>(false);
@@ -30,7 +31,7 @@ const ChatRoom = () => {
     setLayoutConfig({
       type: "back-more",
       showHeader: true,
-      title: "차한잔",
+      title: otherMemberName,
       showBottomBar: false,
       onBack: () => {
         hanldleClickBack();
@@ -216,7 +217,7 @@ const ChatRoom = () => {
 
         {isClosed && (
           <div className={`chatRoom__closed caption1`}>
-            차한잔 님이 대화를 종료하셨어요.
+            {otherMemberName} 님이 대화를 종료하셨어요.
           </div>
         )}
 

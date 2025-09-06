@@ -28,16 +28,18 @@ const Chat = () => {
     otherMemberId: number;
     status: "OPEN" | "CLOSE";
     unreadCount: number;
+    otherMemberName: string;
   };
 
   const handleClickRoom = ({
     chatRoomId,
     otherMemberId,
+    otherMemberName,
     status,
     unreadCount,
   }: ChatNavType) => {
     navigate(`${chatRoomId}`, {
-      state: { otherMemberId, status, unreadCount },
+      state: { otherMemberId, status, unreadCount, otherMemberName },
     });
   };
 
@@ -61,6 +63,7 @@ const Chat = () => {
               otherMemberId: item.otherMemberId,
               status: item.status,
               unreadCount: item.unreadCount,
+              otherMemberName: item.otherMemberName,
             })
           }
         />
