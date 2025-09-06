@@ -25,6 +25,32 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState<RenderMsgProps[]>([]);
   const [myName, setMyName] = useState<string>("");
   const socketEndpoint = "/ws-connect";
+  const [timeLeft, setTimeLeft] = useState<number>(30 * 60);
+
+  useEffect(() => {
+    if (isClosed) return;
+    const interval = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime === 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isClosed]);
+
+  // 형식화된 시간 반환 (MM:SS)
+  const formatTimeLeft = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  };
 
   // initial header & bottom setting
   useEffect(() => {
@@ -152,7 +178,12 @@ const ChatRoom = () => {
       )}
       <div className="chatRoom">
         {/* instruction */}
-        <div className="chatRoom__instruction caption1">{instruction}</div>
+        <div className="chatRoom__instruction caption1">
+          {instruction}
+          <span className="chatRoom__timer">
+            {isClosed ? "00:00" : formatTimeLeft(timeLeft)}
+          </span>
+        </div>
         {/* chatting */}
         <div className="chatRoom__list">
           {messages.map((chat, idx) => {
