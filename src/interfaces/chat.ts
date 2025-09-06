@@ -13,9 +13,12 @@ export type ChatRequestType = {
   opponentId: number;
 };
 
-export type ChatResponseType = {
+export type ReponseBaseType = {
   success: boolean;
   message: string;
+};
+
+export type ChatResponseType = ReponseBaseType & {
   data: ChatBaseType;
 };
 
@@ -30,9 +33,7 @@ export type MessageBaseType = {
   createdAt: TimeStamp;
 };
 
-export type MessageResponseType = {
-  success: true;
-  message: string;
+export type MessageResponseType = ReponseBaseType & {
   data: MessageBaseType[];
 };
 
@@ -45,9 +46,7 @@ export type MyChatBaseType = {
   unreadCount: number;
 };
 
-export type MyChatResponseType = {
-  success: true;
-  message: string;
+export type MyChatResponseType = ReponseBaseType & {
   data: MyChatBaseType[];
 };
 
@@ -63,9 +62,7 @@ export type EvaluateBaseType = {
   review: string;
 };
 
-export type EvaluateResponseType = {
-  success: true;
-  message: string;
+export type EvaluateResponseType = ReponseBaseType & {
   data: EvaluateBaseType;
 };
 
@@ -74,3 +71,9 @@ export interface RenderMsgProps {
   text: string;
   at?: string;
 }
+
+export type ApplyChatRequestType = {
+  receiverId: number;
+};
+
+export type ApplyChatResponseType = ReponseBaseType & {};
