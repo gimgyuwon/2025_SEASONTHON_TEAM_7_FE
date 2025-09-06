@@ -13,3 +13,22 @@ export interface UserCardProps {
   user: UserCardData;
   onClick?: (userId: string) => void;
 }
+
+// 리뷰 데이터
+export interface Review {
+  reviewerName: string;
+  reviewerProfileImageUrl: string;
+  reviewerComment: string;
+  reviewDate: string;
+}
+
+// 마이페이지용 프로필 데이터
+export interface MyProfileData {
+  memberAge: string; // "TEENAGER", "TWENTIES", etc.
+  nickname: string | null;
+  profileImageUrl: string | null;
+  mannerScore: number;
+  interests: string[];
+  introduceMySelf: string | null;
+  reviews: Review[];
+}
