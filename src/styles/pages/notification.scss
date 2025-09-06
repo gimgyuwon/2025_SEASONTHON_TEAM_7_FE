@@ -1,0 +1,64 @@
+@use "../variables";
+
+.noti {
+  display: flex;
+  width: full;
+
+  margin-left: calc(-1 * var(--main-padding, 16px));
+  margin-right: calc(-1 * var(--main-padding, 16px));
+
+  &__item {
+    display: flex;
+    flex-grow: 1;
+    padding: variables.$spacing-md;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+  }
+
+  &__profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d8d8d8;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__info {
+    color: variables.$text-black;
+  }
+
+  &__time {
+    color: variables.$text-gray;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  &__btn {
+    background-color: variables.$primary-color;
+    border: 1px solid variables.$outline-color;
+    border-radius: 4px;
+    min-width: 49px;
+    width: 49px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3px;
+  }
+
+  &__img {
+    display: flex;
+    width: 7px;
+    height: 7px;
+    justify-content: center;
+    align-self: center;
+  }
+}
