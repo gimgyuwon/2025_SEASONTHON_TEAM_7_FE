@@ -1,4 +1,8 @@
 import type {
+  ApplyChatRequestType,
+  ApplyChatResponseType,
+  ChangeChatStatusRequestType,
+  ChangeChatStatusResponseType,
   ChatRequestType,
   ChatResponseType,
   EvaluateRequestType,
@@ -38,6 +42,24 @@ export const EvaluateScore = async (
   body: EvaluateRequestType
 ): Promise<EvaluateResponseType> => {
   const { data } = await apiV1.post("/manners", body);
+
+  return data;
+};
+
+// POST: Apply coffee chat
+export const ApplyChat = async (
+  body: ApplyChatRequestType
+): Promise<ApplyChatResponseType> => {
+  const { data } = await apiV1.post("/coffee-chats", body);
+
+  return data;
+};
+
+// POST: Change chat status
+export const ChangeChatStatus = async (
+  body: ChangeChatStatusRequestType
+): Promise<ChangeChatStatusResponseType> => {
+  const { data } = await apiV1.patch("/coffee-chats", body);
 
   return data;
 };

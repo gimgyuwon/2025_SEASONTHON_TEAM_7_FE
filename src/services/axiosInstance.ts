@@ -82,3 +82,12 @@ export const chatApi = attachInterceptors(
     },
   })
 );
+
+export const notificationApi = attachInterceptors(
+  axios.create({
+    baseURL: import.meta.env.VITE_API_URL + "/v1/notifications",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+);

@@ -42,7 +42,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    
+
     .label {
       color: variables.$text-black;
       @extend .label;
@@ -75,3 +75,8 @@
   min-height: 100vh;
 }
 
+// 푸터 없는 페이지를 위한 스타일
+.main-content.no-bottom {
+  padding-bottom: 0;
+  min-height: 100vh;
+}

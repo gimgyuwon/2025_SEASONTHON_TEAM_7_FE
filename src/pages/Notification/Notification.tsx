@@ -1,57 +1,39 @@
-import rightArrowIcon from "@/assets/Chat/rightArrowIcon.svg";
+import type { GetNotificationBaseType } from "@/interfaces/notification";
+import { GetMyNotification } from "@/services/notification/notificationService";
+import { useEffect, useState } from "react";
+import NotiItem from "./_components/NotiItem";
 
 const Notification = () => {
-  const item = {
-    otherName: "",
-    msg: "",
-    time: "",
+  const [notis, setNotis] = useState<GetNotificationBaseType[]>([]);
+
+  const handleGetNotification = async () => {
+    try {
+      const res = await GetMyNotification();
+      setNotis(res.data);
+      console.log("get notification", res.data);
+    } catch (err: unknown) {
+      console.error("get notification failed", err);
+    }
   };
-  const btnTitle = "확인";
+
+  useEffect(() => {
+    handleGetNotification();
+  }, []);
+
+  if (notis.length == 0) {
+    console.log("notis", notis);
+    return <div className="wrapper label noNotis">알림이 없어요.</div>;
+  }
 
   return (
     <div className="wrapper">
-      <div className="noti">
-        <div className="noti__item">
-          {/* left */}
-          <div className="noti__left">
-            {/* profile */}
-            <div
-              // style={
-              //   item?.img ? { backgroundImage: `url(${item.img})` } : undefined
-              // }
-              role="img"
-              aria-label="profile"
-              className="noti__profile"
-            />
-            {/* noti info */}
-            <div className="noti__info">
-              {/* recent message */}
-              <div className="noti__msg body">
-                {item?.msg
-                  ? item.msg
-                  : `${
-                      item?.otherName ? item.otherName : "차한잔"
-                    } 님이 차 한잔을 요청했어요.`}
-              </div>
-              {/* time */}
-              <div className="noti_time caption1">
-                {item?.time ? item.time : "지금"}
-              </div>
-            </div>
+      {notis.map((noti, idx) => {
+        return (
+          <div key={idx}>
+            <NotiItem item={noti} />
           </div>
-          {/* right */}
-          <div className="noti__right">
-            <button type="button" className="noti__btn">
-              {btnTitle}
-              <img
-                className="noti__img"
-                src={rightArrowIcon}
-                alt="rightArrowIcon"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };
