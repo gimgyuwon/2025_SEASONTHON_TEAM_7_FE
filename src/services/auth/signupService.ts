@@ -29,13 +29,19 @@ export const checkNicknameDuplicate = async (nickname: string): Promise<boolean>
 
 export const signupService = {
   async signup(data: SignupData, token: string): Promise<SignupResponse> {
+    // 관심사에서 # 제거
+    const processedData = {
+      ...data,
+      interests: data.interests.map(interest => interest.replace('#', ''))
+    };
+
     const response = await fetch(API_ENDPOINTS.SIGNUP, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(processedData)
     });
 
     if (!response.ok) {
