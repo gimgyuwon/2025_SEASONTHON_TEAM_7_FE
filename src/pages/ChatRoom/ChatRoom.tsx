@@ -1,14 +1,16 @@
 import type { RenderMsgProps } from "@/interfaces/chat";
 import { RetrieveSpecificChat } from "@/services/chat/chatService";
-import { useLayout } from "@/services/hooks/useLayout";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import sendIcon from "@/assets/Chat/sendIcon.svg";
 import { createStompClient, type IncomingChatMsg } from "@/utils";
 import type { Client } from "@stomp/stompjs";
+import { useLayout } from "@/services/hooks/useLayout";
 
 const ChatRoom = () => {
   const { setLayoutConfig } = useLayout();
+  const [moreClick, setMoreClick] = useState<Boolean>(false);
+  const navigate = useNavigate();
   const instruction = "채팅종료까지 남은 시간";
   const clientRef = useRef<Client | null>(null);
   const [msg, setMsg] = useState("");
@@ -24,8 +26,24 @@ const ChatRoom = () => {
       showHeader: true,
       title: "차한잔",
       showBottomBar: false,
+      onBack: () => {
+        hanldleClickBack();
+      },
+      onMore: () => {
+        handleClickMore();
+      },
     });
   }, [setLayoutConfig]);
+
+  const hanldleClickBack = () => {
+    console.log("onBack clicked");
+    navigate(-1);
+  };
+
+  const handleClickMore = () => {
+    console.log("onMore clicked");
+    setMoreClick((prev) => !prev);
+  };
 
   const init = async () => {
     if (!chatRoomId) return;
@@ -94,8 +112,27 @@ const ChatRoom = () => {
     setMsg("");
   };
 
+  const handleClickQuit = () => {
+    console.log("quit btn is clicked");
+  };
+
+  const handleClickReport = () => {
+    console.log("report btn is clicked");
+  };
+
   return (
     <div className="wrapper">
+      {/* more modal */}
+      {moreClick && (
+        <div className="moreBox body">
+          <div className="moreBox__top" onClick={() => handleClickQuit()}>
+            대화 종료하기
+          </div>
+          <div className="moreBox__bottom" onClick={() => handleClickReport()}>
+            신고하기
+          </div>
+        </div>
+      )}
       <div className="chatRoom">
         {/* instruction */}
         <div className="chatRoom__instruction caption1">{instruction}</div>
