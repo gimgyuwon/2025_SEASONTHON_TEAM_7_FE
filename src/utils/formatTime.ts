@@ -20,6 +20,9 @@ export const formatLastActiveTime = (lastActiveAt: string): string => {
     return `${hours}시간 전`;
   } else {
     const days = Math.floor(diffInMinutes / 1440);
+    if (days > 30) {
+      return "오래 전";
+    }
     return `${days}일 전`;
   }
 };
