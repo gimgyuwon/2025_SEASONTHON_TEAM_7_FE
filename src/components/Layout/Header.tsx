@@ -4,6 +4,7 @@ import closeIcon from "@/assets/Header/close.svg";
 import backIcon from "@/assets/Header/back.svg";
 import moreIcon from "@/assets/Header/more.svg";
 import settingIcon from "@/assets/Header/setting.svg";
+import { useNavigate } from "react-router-dom";
 
 export type HeaderType =
   | "home"
@@ -30,6 +31,7 @@ const Header: React.FC<HeaderProps> = ({
   onMore,
   onSetting,
 }) => {
+  const navigate = useNavigate();
   const renderHeaderContent = () => {
     switch (type) {
       case "home":
@@ -38,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="header-logo">
               <h1>차한잔</h1>
             </div>
-            <BellIcon />
+            <BellIcon onClick={() => navigate("/notification")} />
           </>
         );
 
@@ -58,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="header-left">
               <span className="label">{title}</span>
             </div>
-            <BellIcon />
+            <BellIcon onClick={() => navigate("/notification")} />
           </>
         );
 
@@ -108,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className="header-logo">
               <h1>차한잔</h1>
             </div>
-            <BellIcon />
+            <BellIcon onClick={() => navigate("/notification")} />
           </>
         );
     }
