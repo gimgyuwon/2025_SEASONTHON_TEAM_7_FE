@@ -1,0 +1,274 @@
+@use "../variables";
+@use "../typography";
+@use "./home";
+
+.my-container {
+  @extend .chat-request-container;
+  gap: 16px;
+}
+
+.my-profile-card {
+  @extend .chat-request-profile-card;
+}
+
+.my-user-profile {
+  @extend .chat-request-user-profile;
+} 
+
+.my-introduction-text {
+  @extend .body;
+  margin-bottom: 0px;
+}
+
+.my-edit-btn {
+  padding: 0px;
+}
+
+.my-warmth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-warmth-section {
+  margin-top: 4px;
+}
+
+.my-section-title {
+  @extend .label;
+}
+
+.my-warmth-item {
+  display: flex;
+  padding: 16px 0;
+  justify-content: space-between;
+  align-items: center;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.my-warmth-left {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  flex: 1;
+}
+
+.my-warmth-profile {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.my-warmth-profile-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #d8d8d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  span {
+    color: #666;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
+.my-warmth-content {
+  flex: 1;
+  color: variables.$text-black;
+}
+
+.my-warmth-name {
+  font-family: Elice DX Neolli;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 4px;
+}
+
+.my-warmth-message {
+  @extend .body;
+  color: variables.$text-black;
+  font-size: 13px;
+}
+
+.my-warmth-date {
+  @extend .caption1;
+  color: variables.$text-gray;
+  white-space: nowrap;
+}
+
+.no-warmth {
+  display: flex;
+  width: full;
+  margin: 100px auto;
+  justify-content: center;
+  align-items: start;
+  color: #666666;
+}
+
+// 스켈레톤 UI 스타일
+.my-skeleton-profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.my-skeleton-user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 13px;
+}
+
+.my-skeleton-name {
+  width: 120px;
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-tea-score {
+  width: 100px;
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.my-skeleton-hashtag {
+  width: 40px;
+  height: 12px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  
+  &:nth-child(2) { width: 35px; }
+  &:nth-child(3) { width: 45px; }
+}
+
+.my-skeleton-introduction {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.my-skeleton-line {
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  
+  &:nth-child(1) { width: 100%; }
+  &:nth-child(2) { width: 90%; }
+  &.short { width: 60%; }
+}
+
+.my-skeleton-button {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.my-skeleton-section-title {
+  width: 120px;
+  height: 18px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-arrow {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-warmth-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.my-skeleton-warmth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.my-skeleton-warmth-name {
+  width: 60px;
+  height: 14px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-warmth-date {
+  width: 50px;
+  height: 12px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.my-skeleton-warmth-message {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+// Shimmer 애니메이션
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
