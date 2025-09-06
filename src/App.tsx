@@ -9,6 +9,9 @@ import {
   Review,
   Notification,
   Decide,
+  Splash,
+  Onboard1,
+  Onboard2,
 } from "./pages";
 import My from "./pages/My";
 import { MyReview } from "./pages/MyReview";
@@ -24,6 +27,11 @@ function App() {
       <LayoutProvider>
         <Layout>
           <Routes>
+            {/* 온보딩 페이지 */}
+            <Route path="/splash" element={<Splash />} />
+            <Route path="/onboard/1" element={<Onboard1 />} />
+            <Route path="/onboard/2" element={<Onboard2 />} />
+            
             {/* 공개 페이지 */}
             <Route path="/" element={<Home />} />
             <Route path="/labs" element={<Labs />} />
