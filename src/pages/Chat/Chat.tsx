@@ -20,9 +20,21 @@ const Chat = () => {
     })();
   }, []);
 
-  const handleClickRoom = (chatRoomId: number) => {
-    navigate(`${chatRoomId}`);
+  type ChatNavType = {
+    chatRoomId: number;
+    otherMemberId: number;
   };
+
+  const handleClickRoom = ({ chatRoomId, otherMemberId }: ChatNavType) => {
+    navigate(`${chatRoomId}`, { state: { otherMemberId } });
+  };
+
+  if (myRooms.length == 0) {
+    console.log("myRooms", myRooms);
+    return (
+      <div className="wrapper label noRooms">아직 생성된 채팅방이 없어요.</div>
+    );
+  }
 
   return (
     <div className="wrapper">
@@ -32,7 +44,12 @@ const Chat = () => {
           key={idx}
           item={item}
           bgColor={idx % 2 === 0 ? "even" : "odd"}
-          onClick={() => handleClickRoom(item.chatRoomId)}
+          onClick={() =>
+            handleClickRoom({
+              chatRoomId: item.chatRoomId,
+              otherMemberId: item.otherMemberId,
+            })
+          }
         />
       ))}
     </div>

@@ -1,6 +1,45 @@
 @use "../_typography";
 @use "../_variables";
 
+.noRooms {
+  display: flex;
+  width: full;
+  margin: 100px auto;
+  justify-content: center;
+  align-items: start;
+  color: #666666;
+}
+
+.moreBox {
+  position: absolute;
+  top: 41px;
+  right: 16px;
+  z-index: 100;
+  width: 120px;
+  height: 64px;
+  background: #fff;
+  border-radius: 4px;
+
+  &__top {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #93867a;
+    border-radius: 8px 8px 0px 0px;
+  }
+
+  &__bottom {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #93867a;
+    border-top-width: 0px;
+    border-radius: 0px 0px 8px 8px;
+  }
+}
+
 .chat {
   display: flex;
   width: 100vw;
