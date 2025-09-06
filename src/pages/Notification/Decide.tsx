@@ -63,7 +63,7 @@ const Decide = () => {
               <img src={user.profileImage} alt={`${user.nickname} 프로필`} />
             ) : (
               <div className="chat-request-profile-placeholder">
-                <span>{user.nickname}</span>
+                <span>{user.nickname.charAt(0)}</span>
               </div>
             )}
           </div>
@@ -73,13 +73,14 @@ const Decide = () => {
               <span className="chat-request-user-nickname-suffix">님</span>
               <span className="chat-request-user-age">{user.age}</span>
             </span>
-            <span className="chat-request-tea-score">
-              찻잔지수
-              <span className="chat-request-tea-score-number">
-                {user.teaScore ? user.teaScore : "-"}
-                {""} 잔
+            {!user.teaScore ? (
+              <span className="tea-score">첫 대화 대기중</span>
+            ) : (
+              <span className="tea-score">
+                찻잔지수
+                <span className="tea-score-number">{user.teaScore}잔</span>
               </span>
-            </span>
+            )}
             <div className="chat-request-user-interests">
               {user.interests.map((tag, index) => (
                 <span key={index} className="chat-request-hashtag">
