@@ -16,7 +16,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
             <img src={user.profileImage} alt={`${user.name} 프로필`} />
           ) : (
             <div className="profile-placeholder">
-              <span>{user.name.charAt(0)}</span>
+              <span>{user.name?.charAt(0) || '?'}</span>
             </div>
           )}
         </div>
@@ -31,7 +31,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
       </div>
       <div className="user-hashtags">
         {user.hashtags.map((tag, index) => (
-          <span key={index} className="hashtag">#{tag}</span>
+          <span key={index} className="hashtag">{tag}</span>
         ))}
       </div>
     </div>
