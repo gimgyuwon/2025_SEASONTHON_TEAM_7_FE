@@ -8,6 +8,7 @@ import {
   ChatRoom,
   Review,
   Notification,
+  Decide,
 } from "./pages";
 import My from "./pages/My";
 import { MyReview } from "./pages/MyReview";
@@ -34,6 +35,7 @@ function App() {
             <Route path="/notification" element={<Notification />} />
             <Route path="/profile" element={<My />} />
             <Route path="/my-reviews" element={<MyReview />} />
+            <Route path="/notification/decide/:refId" element={<Decide />} />
 
             {/* 비인증 사용자만 접근 가능 (로그인, 회원가입 등) */}
             <Route

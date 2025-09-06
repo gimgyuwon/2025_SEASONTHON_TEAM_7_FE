@@ -4,7 +4,7 @@ export interface UserCardData {
   name: string;
   age: number;
   profileImage?: string;
-  teaScore: number; // 찻잔지수
+  teaScore?: number; // 찻잔지수
   introduction: string;
   hashtags: string[];
 }
@@ -31,4 +31,15 @@ export interface MyProfileData {
   interests: string[];
   introduceMySelf: string | null;
   reviews: Review[];
+}
+
+export interface ProfileProps {
+  id: string;
+  userId: string;
+  nickname: string;
+  age: number;
+  profileImage?: string;
+  teaScore?: number;
+  introduction: string;
+  interests: string[];
 }

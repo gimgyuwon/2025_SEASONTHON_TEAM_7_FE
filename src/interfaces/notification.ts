@@ -9,6 +9,7 @@ export type GetNotificationBaseType = {
   status: "UNREAD" | "READ";
   createdAt: TimeStamp;
   readAt: TimeStamp;
+  referencedId: number;
 };
 
 export type GetMyNotificationType = ReponseBaseType & {

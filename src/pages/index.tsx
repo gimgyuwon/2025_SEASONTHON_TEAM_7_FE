@@ -6,3 +6,4 @@ export { default as Chat } from "./Chat";
 export { default as ChatRoom } from "./ChatRoom";
 export { default as Review } from "./Review";
 export { default as Notification } from "./Notification";
+export { default as Decide } from "./Notification/Decide";

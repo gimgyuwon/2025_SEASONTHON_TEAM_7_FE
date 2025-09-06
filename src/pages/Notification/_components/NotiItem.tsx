@@ -1,6 +1,7 @@
 import type { GetNotificationBaseType } from "@/interfaces/notification";
 import rightArrowIcon from "@/assets/Chat/rightArrowIcon.svg";
 import formatTime from "@/pages/Chat/_utils/formatTime";
+import { useNavigate } from "react-router-dom";
 
 type NotiItemProps = {
   item: GetNotificationBaseType;
@@ -8,6 +9,11 @@ type NotiItemProps = {
 
 const NotiItem = ({ item }: NotiItemProps) => {
   const btnTitle = "확인";
+  const navigate = useNavigate();
+
+  const handleClickBtn = async (referencedId: number) => {
+    navigate(`decide/${referencedId}`, { state: { referencedId } });
+  };
 
   return (
     <div className="noti">
@@ -41,7 +47,11 @@ const NotiItem = ({ item }: NotiItemProps) => {
         </div>
         {/* right */}
         <div className="noti__right">
-          <button type="button" className="noti__btn">
+          <button
+            type="button"
+            className="noti__btn"
+            onClick={() => handleClickBtn(item.referencedId)}
+          >
             {btnTitle}
             <img
               className="noti__img"

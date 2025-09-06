@@ -1,15 +1,15 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { tokenService } from '../services/auth/tokenService';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { tokenService } from "../services/auth/tokenService";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAuth?: boolean; // true: 인증 필요, false: 비인증 사용자만 접근 가능
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
-  requireAuth = true 
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  requireAuth = true,
 }) => {
   const location = useLocation();
   const hasToken = tokenService.hasAnyToken();
