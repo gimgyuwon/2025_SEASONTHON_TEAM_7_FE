@@ -1,3 +1,5 @@
+import type { TimeStamp } from "./common";
+
 export interface UserCardData {
   id: string;
   userId: string;
@@ -34,12 +36,13 @@ export interface MyProfileData {
 }
 
 export interface ProfileProps {
-  id: string;
-  userId: string;
+  isActive?: boolean;
+  lastActiveAt?: TimeStamp;
   nickname: string;
   age: number;
-  profileImage?: string;
-  teaScore?: number;
+  memberId: number;
+  profileImageUrl?: string;
+  mannerScore?: number;
   introduction: string;
   interests: string[];
 }

@@ -6,6 +6,7 @@ import sendIcon from "@/assets/Chat/sendIcon.svg";
 import { createStompClient, type IncomingChatMsg } from "@/utils";
 import type { Client } from "@stomp/stompjs";
 import { useLayout } from "@/services/hooks/useLayout";
+import { getMyProfile } from "@/services/home/memberService";
 
 const ChatRoom = () => {
   const { setLayoutConfig } = useLayout();
@@ -18,7 +19,7 @@ const ChatRoom = () => {
   const [msg, setMsg] = useState("");
   const { chatRoomId } = useParams<{ chatRoomId: string }>();
   const [messages, setMessages] = useState<RenderMsgProps[]>([]);
-  const myName = "T1";
+  const [myName, setMyName] = useState<string>("");
   const socketEndpoint = "/ws-connect";
 
   // initial header & bottom setting
@@ -59,7 +60,13 @@ const ChatRoom = () => {
       }));
       setMessages(formatted);
 
-      // 2. connect STOMP
+      // 2. get my profile
+      const myProfile = await getMyProfile();
+      if (myProfile) {
+        setMyName(myProfile.nickname);
+      }
+
+      // 3. connect STOMP
       const client = createStompClient(
         socketEndpoint,
         Number(chatRoomId),

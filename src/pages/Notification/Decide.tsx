@@ -1,7 +1,7 @@
 import { useLayout } from "@/services/hooks/useLayout";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ChangeChatStatus } from "@/services/chat/chatService";
+import { ChangeChatStatus, CreateChatRoom } from "@/services/chat/chatService";
 import { getSpecificMember } from "@/services/home/memberService";
 import type { ProfileProps } from "@/interfaces/user";
 
@@ -9,6 +9,7 @@ const Decide = () => {
   const { setLayoutConfig } = useLayout();
   const navigate = useNavigate();
   const [user, setUser] = useState<ProfileProps>();
+  const [opponentId, setOppentId] = useState<number>();
 
   const { refId } = useParams<{ refId: string }>();
   const coffeeChatId = Number(refId);
@@ -17,6 +18,7 @@ const Decide = () => {
     try {
       const res = await getSpecificMember(coffeeChatId);
       setUser(res);
+      setOppentId(res.memberId);
       console.log("get getSpecificMember", res);
     } catch (err: unknown) {
       console.error("get handleGetSpecificMember failed", err);
@@ -36,12 +38,25 @@ const Decide = () => {
     });
   }, [setLayoutConfig, navigate]);
 
+  const handleClickCreate = async (opponentId: number) => {
+    try {
+      const res = await CreateChatRoom({ opponentId: opponentId });
+      console.log("CreateChatRoom", res);
+    } catch (e) {
+      console.error("방 생성 실패:", e);
+    }
+  };
+
   const handleClickBtn = async (coffeeChatId: number, accept: boolean) => {
+    const isAccept = accept == true;
     try {
       const res = await ChangeChatStatus({
         coffeeChatId,
-        status: accept == true ? "ACCEPTED" : "DECLINED",
+        status: isAccept ? "ACCEPTED" : "DECLINED",
       });
+      if (isAccept && opponentId) {
+        handleClickCreate(opponentId);
+      }
       console.log("handleClickBtn", res);
       navigate("/chat");
     } catch (err: unknown) {
@@ -59,8 +74,8 @@ const Decide = () => {
       <div className="chat-request-profile-card">
         <div className="chat-request-user-profile">
           <div className="chat-request-profile-image">
-            {user.profileImage ? (
-              <img src={user.profileImage} alt={`${user.nickname} 프로필`} />
+            {user.profileImageUrl ? (
+              <img src={user.profileImageUrl} alt={`${user.nickname} 프로필`} />
             ) : (
               <div className="chat-request-profile-placeholder">
                 <span>{user.nickname.charAt(0)}</span>
@@ -73,12 +88,12 @@ const Decide = () => {
               <span className="chat-request-user-nickname-suffix">님</span>
               <span className="chat-request-user-age">{user.age}</span>
             </span>
-            {!user.teaScore ? (
+            {!user.mannerScore ? (
               <span className="tea-score">첫 대화 대기중</span>
             ) : (
               <span className="tea-score">
                 찻잔지수
-                <span className="tea-score-number">{user.teaScore}잔</span>
+                <span className="tea-score-number">{user.mannerScore}잔</span>
               </span>
             )}
             <div className="chat-request-user-interests">
