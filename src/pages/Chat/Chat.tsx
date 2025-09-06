@@ -27,14 +27,18 @@ const Chat = () => {
     chatRoomId: number;
     otherMemberId: number;
     status: "OPEN" | "CLOSE";
+    unreadCount: number;
   };
 
   const handleClickRoom = ({
     chatRoomId,
     otherMemberId,
     status,
+    unreadCount,
   }: ChatNavType) => {
-    navigate(`${chatRoomId}`, { state: { otherMemberId, status } });
+    navigate(`${chatRoomId}`, {
+      state: { otherMemberId, status, unreadCount },
+    });
   };
 
   if (myRooms.length == 0) {
@@ -56,6 +60,7 @@ const Chat = () => {
               chatRoomId: item.chatRoomId,
               otherMemberId: item.otherMemberId,
               status: item.status,
+              unreadCount: item.unreadCount,
             })
           }
         />
