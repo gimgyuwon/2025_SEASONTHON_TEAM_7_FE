@@ -1,5 +1,14 @@
 @use "../variables";
 
+.noNotis {
+  display: flex;
+  width: full;
+  margin: 100px auto;
+  justify-content: center;
+  align-items: start;
+  color: #666666;
+}
+
 .noti {
   display: flex;
   width: full;
