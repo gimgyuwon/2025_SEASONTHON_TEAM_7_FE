@@ -84,3 +84,10 @@ export const getSpecificMember = async (
 
   return data.data;
 };
+
+// GET: get my profile
+export const getMyProfile = async (): Promise<ProfileProps> => {
+  const { data } = await apiV1.get("/members/me");
+
+  return data.data;
+};

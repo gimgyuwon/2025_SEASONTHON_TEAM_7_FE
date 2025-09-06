@@ -11,7 +11,7 @@ export interface IncomingChatMsg {
 const buildAuthHeaders = (rawToken?: string | null): StompHeaders => {
   if (!rawToken) return {};
   const v = rawToken.startsWith("Bearer ") ? rawToken : `Bearer ${rawToken}`;
-  return { Authorization: v }; // 항상 string
+  return { Authorization: v };
 };
 
 export const createStompClient = (
