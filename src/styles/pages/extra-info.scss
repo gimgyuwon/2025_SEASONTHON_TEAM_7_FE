@@ -105,6 +105,24 @@
   }
 }
 
+// 회원가입 완료 아이콘 스켈레톤
+.signup-complete-icon-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.signup-complete-skeleton {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
 // 관심사 선택 컴포넌트 스타일
 .interest-selector {
   margin-bottom: 2rem;
