@@ -1,6 +1,15 @@
 @use "../_typography";
 @use "../_variables";
 
+.noRooms {
+  display: flex;
+  width: full;
+  margin: 100px auto;
+  justify-content: center;
+  align-items: start;
+  color: #666666;
+}
+
 .chat {
   display: flex;
   width: 100vw;

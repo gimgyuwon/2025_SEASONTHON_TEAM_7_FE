@@ -24,6 +24,13 @@ const Chat = () => {
     navigate(`${chatRoomId}`);
   };
 
+  if (myRooms.length == 0) {
+    console.log("myRooms", myRooms);
+    return (
+      <div className="wrapper label noRooms">아직 생성된 채팅방이 없어요.</div>
+    );
+  }
+
   return (
     <div className="wrapper">
       {/* chatroom */}
